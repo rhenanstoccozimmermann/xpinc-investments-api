@@ -13,16 +13,16 @@
 
 <ol>
   <li>
-    <a href="#sobre-o-desafio">Sobre o desafio</a>
+    <a href="#1-sobre-o-desafio">Sobre o desafio</a>
   </li>
   <li>
-    <a href="#explicação-sobre-as-tomadas-de-decisão-no-projeto">Explicação sobre as tomadas de decisão no projeto</a>
+    <a href="#2-explicação-sobre-as-tomadas-de-decisão-no-projeto">Explicação sobre as tomadas de decisão no projeto</a>
   </li>
   <li>
-    <a href="#instruções-sobre-como-executar-o-projeto">Instruções sobre como executar o projeto</a>
+    <a href="#3-instruções-sobre-como-executar-o-projeto">Instruções sobre como executar o projeto</a>
   </li>
   <li>
-    <a href="#contato">Contato</a>
+    <a href="#4-contato">Contato</a>
   </li>
 </ol>
 
@@ -125,7 +125,7 @@ Validações a serem feitas:
 
 ## 2. Explicação sobre as tomadas de decisão no projeto
 
-Seguem as decisões tomadas no planejamento, implementação e conclusão do projeto.
+Seguem as decisões tomadas no planejamento, implementação e conclusão do projeto, com a correspondente explicação.
 
 ### I) Padrões de arquitetura
 
