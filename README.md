@@ -165,10 +165,11 @@ Para obter uma cópia local da aplicação e executá-la, siga os passos abaixo.
 git clone git@github.com:rhenanstoccozimmermann/xpinc-investments-api.git
 ```
 
-### II) Instalações
+### II) Configurações
 
-- Instalação do [Node.js](https://nodejs.org/en/); e
-- Instalação das dependências com npm install (ou npm i).
+- Instalação do [Node.js](https://nodejs.org/en/);
+- Instalação das dependências com npm install (ou npm i); e
+- Criação de um arquivo .env com as variáveis de ambiente para uso do MySQL (usar como referência o `.env.example`).
 
 ### III) Execução da aplicação
 
