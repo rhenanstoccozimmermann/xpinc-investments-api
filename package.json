@@ -1,0 +1,30 @@
+{
+  "name": "xpinc-investments-api",
+  "version": "1.0.0",
+  "description": "<div align=\"center\">   <a href=\"https://github.com/rhenanstoccozimmermann/xpinc-investments-api\">     <img src=\".github/xpinc.png\" alt=\"Desafio Técnico Turma XP - Trybe\" width=\"400px\">   </a>   <h3 align=\"center\">Desafio Técnico Turma XP - Trybe | XP Inc.</h3>   <p align=\"center\">     Trata-se de desafio técnico proposto pela XP Inc. no processo seletivo da Turma XP - Trybe, no qual foi desenvolvido um aplicativo de investimento em ações, com algumas funcionalidades de conta digital.   </p> </div>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhenanstoccozimmermann/xpinc-investments-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rhenanstoccozimmermann/xpinc-investments-api/issues"
+  },
+  "homepage": "https://github.com/rhenanstoccozimmermann/xpinc-investments-api#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.21.3"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.4.1"
+  }
+}
