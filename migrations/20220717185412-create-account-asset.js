@@ -1,27 +1,38 @@
 'use strict';
-module.exports = {
+
+export default {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('AccountAssets', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
+      accountId: {
+        type: Sequelize.INTEGER,
+        field: 'account_id',
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      nomeDoAtributo: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        references: {
+          model: 'Accounts',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
-      updatedAt: {
+      assetId: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
         allowNull: false,
-        type: Sequelize.DATE
+        references: {
+          model: 'Assets',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       }
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface, _Sequelize) {
     await queryInterface.dropTable('AccountAssets');
   }
 };
