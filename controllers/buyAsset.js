@@ -4,8 +4,6 @@ module.exports = async (req, res) => {
   try {
     const { accountId, assetId, quantity } = req.body;
 
-    // const clientId = req.clientId;
-
     const result = await buyAsset(accountId, assetId, quantity);
 
     if (result.error) {
