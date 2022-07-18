@@ -9,6 +9,9 @@ const app = express();
 
 app.use(express.json());
 
+app.get('/', (_req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
 // app.post('/login', login);
 app.use('/investments', investmentsRoutes);
 app.use('/assets', assetsRoutes);

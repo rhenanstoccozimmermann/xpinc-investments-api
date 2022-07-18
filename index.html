@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>XP Inc. Investments API</title>
+  </head>
+  <body>
+    <h1>XP Inc. Investments API</h1>
+    <p>Trata-se de desafio técnico proposto pela XP Inc. no processo seletivo da Turma XP - Trybe, no qual foi desenvolvido um aplicativo de investimento em ações, com algumas funcionalidades de conta digital.</p>
+    <p>Para mais informações, acesse o respositório abaixo:</p>
+    <a href="https://github.com/rhenanstoccozimmermann/xpinc-investments-api" target="_blank">GitHub</a>
+    <h2>Endpoints</h2>
+    <h3>/investments/buy</h3>
+    <p>O endpoint realiza a compra de um ativo.</p>
+    <p>Recebe como entradas o código da conta compradora, o código do ativo e a quantidade de ativos comprados.</p>
+    <p>Retorna o ativo comprado, com o código da conta compradora, o código do ativo e a quantidade atual de ativos.</p>
+    <h3>/investments/sell</h3>
+    <p>O endpoint realiza a venda de um ativo.</p>
+    <p>Recebe como entradas o código da conta vendedora, o código do ativo e a quantidade de ativos vendidos.</p>
+    <p>Retorna o ativo vendido, com o código da conta vendedora, o código do ativo e a quantidade atual de ativos.</p>
+    <h3>/assets/account/:id</h3>
+    <p>O endpoint retorna uma lista com o código da conta, o código do ativo, a quantidade de ativos e o valor do ativo para cada ativo encontrado na carteira.</p>
+    <h3>/assets/asset/:id</h3>
+    <p>O endpoint retorna o código do ativo, a quantidade de ativos na corretora e o valor do ativo.</p>
+    <h3>/accounts/deposit</h3>
+    <p>O endpoint realiza um depósito na conta indicada.</p>
+    <p>Recebe como entradas o código da conta e o valor do depósito.</p>
+    <p>Retorna o código da conta e o saldo atual da conta.</p>
+    <h3>/accounts/withdraw</h3>
+    <p>O endpoint realiza um saque na conta indicada.</p>
+    <p>Recebe como entradas o código da conta e o valor do saque.</p>
+    <p>Retorna o código da conta e o saldo atual da conta.</p>
+    <h3>/accounts/account/:id</h3>
+    <p>O endpoint retorna o código da conta e o saldo da conta.</p>
+  </body>
+</html>
