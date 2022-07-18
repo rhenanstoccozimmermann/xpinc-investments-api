@@ -20,7 +20,7 @@ export default async (req, res) => {
 
     if (!result) throw Error;
 
-    return res.status(201).json(result);
+    return res.status(result.code).json(result.content);
   } catch (error) {
     return res.status(error.code || 500).json({ message: error.message });
   }

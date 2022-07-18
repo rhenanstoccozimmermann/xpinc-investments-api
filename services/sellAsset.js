@@ -21,14 +21,14 @@ export default async (accountId, assetId, quantity) => {
   if (quantityValidation.error) return quantityValidation;
 
   if (accountAsset.quantity === quantity) {
-    const removedAccountAsset = await AccountAsset.destroy({ where: { accountId, assetId } });
+    await AccountAsset.destroy({ where: { accountId, assetId } });
 
-    return removedAccountAsset;
+    return { code: 200, content: { accountId, assetId, quantity: 0 } };
   }
 
   await AccountAsset.update({ quantity: (accountAsset.quantity - quantity) }, { where: { accountId, assetId } });
 
   const updatedAccountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
 
-  return updatedAccountAsset;
+  return { code: 200, content: updatedAccountAsset };
 };

@@ -22,15 +22,15 @@ export default async (accountId, assetId, quantity) => {
 
   const accountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
 
-  if (!accountAsset) {
-    const newAccountAsset = await AccountAsset.create({ accountId, assetId, quantity });
+  if (accountAsset) {
+    await AccountAsset.update({ quantity: (accountAsset.quantity + quantity) },{ where: { accountId, assetId } });
 
-    return newAccountAsset;
+    const updatedAccountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
+
+    return { code: 200, content: updatedAccountAsset };
   }
 
-  await AccountAsset.update({ quantity: (accountAsset.quantity + quantity) },{ where: { accountId, assetId } });
+  const newAccountAsset = await AccountAsset.create({ accountId, assetId, quantity });
 
-  const updatedAccountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
-
-  return updatedAccountAsset;
+  return { code: 201, content: newAccountAsset };
 };
