@@ -4,6 +4,6 @@ import getAssetsByAccountId from '../controllers/getAssetsByAccountId';
 
 const assetsRoutes = express.Router();
 
-assetsRoutes.get('/:accountId', getAssetsByAccountId);
+assetsRoutes.get('/account/:id', getAssetsByAccountId);
 
 export default assetsRoutes;

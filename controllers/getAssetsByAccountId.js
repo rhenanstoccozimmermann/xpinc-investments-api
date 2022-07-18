@@ -2,9 +2,9 @@ import getAssetsByAccountId from '../services/getAssetsByAccountId';
 
 export default async (req, res) => {
   try {
-    const { accountId } = req.params;
+    const { id } = req.params;
 
-    const result = await getAssetsByAccountId(accountId);
+    const result = await getAssetsByAccountId(id);
 
     if (result.error) {
       const { code, message } = result.error;
