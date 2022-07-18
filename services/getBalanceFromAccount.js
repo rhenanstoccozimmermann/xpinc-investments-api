@@ -1,6 +1,6 @@
-import { Account } from '../models';
+const { Account } = require('../models');
 
-export default async (id) => {
+module.exports = async (id) => {
   const account = await Account.findByPk(id);
 
   if (!account) {

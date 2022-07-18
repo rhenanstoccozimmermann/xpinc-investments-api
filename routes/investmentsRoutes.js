@@ -1,11 +1,11 @@
-import express from 'express';
+const express = require('express');
 
-import buyAsset from '../controllers/buyAsset';
-import sellAsset from '../controllers/sellAsset';
+const buyAsset = require('../controllers/buyAsset');
+const sellAsset = require('../controllers/sellAsset');
 
 const investmentsRoutes = express.Router();
 
 investmentsRoutes.post('/buy', buyAsset);
 investmentsRoutes.put('/sell', sellAsset);
 
-export default investmentsRoutes;
+module.exports = investmentsRoutes;

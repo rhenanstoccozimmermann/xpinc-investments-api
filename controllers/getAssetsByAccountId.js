@@ -1,6 +1,6 @@
-import getAssetsByAccountId from '../services/getAssetsByAccountId';
+const getAssetsByAccountId = require('../services/getAssetsByAccountId');
 
-export default async (req, res) => {
+module.exports = async (req, res) => {
   try {
     const { id } = req.params;
 

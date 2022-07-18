@@ -1,4 +1,4 @@
-import { Asset, AccountAsset } from '../models';
+const { AccountAsset } = require('../models');
 
 const validateQuantity = (availableQuantity, requestedQuantity) => {
   if (availableQuantity < requestedQuantity) {
@@ -13,7 +13,7 @@ const validateQuantity = (availableQuantity, requestedQuantity) => {
   return {};
 };
 
-export default async (accountId, assetId, quantity) => {
+module.exports = async (accountId, assetId, quantity) => {
   const accountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
 
   const quantityValidation = validateQuantity(accountAsset.quantity, quantity);

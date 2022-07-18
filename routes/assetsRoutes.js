@@ -1,11 +1,11 @@
-import express from 'express';
+const express = require('express');
 
-import getAssetsByAccountId from '../controllers/getAssetsByAccountId';
-import getAssetByAssetId from '../controllers/getAssetByAssetId';
+const getAssetsByAccountId = require('../controllers/getAssetsByAccountId');
+const getAssetByAssetId = require('../controllers/getAssetByAssetId');
 
 const assetsRoutes = express.Router();
 
 assetsRoutes.get('/account/:id', getAssetsByAccountId);
 assetsRoutes.get('/asset/:id', getAssetByAssetId);
 
-export default assetsRoutes;
+module.exports = assetsRoutes;

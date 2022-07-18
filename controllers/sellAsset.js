@@ -1,6 +1,6 @@
-import sellAsset from '../services/sellAsset';
+const sellAsset = require('../services/sellAsset');
 
-export default async (req, res) => {
+module.exports = async (req, res) => {
   try {
     const { accountId, assetId, quantity } = req.body;
 

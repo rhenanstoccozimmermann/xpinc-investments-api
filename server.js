@@ -1,8 +1,6 @@
-import dotenv from 'dotenv';
+require('dotenv').config();
 
-dotenv.config();
-
-import app from './api';
+const app = require('./api');
 
 const port = process.env.API_PORT;
 

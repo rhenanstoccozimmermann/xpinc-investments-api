@@ -1,6 +1,6 @@
-import getBalanceFromAccount from '../services/getBalanceFromAccount';
+const getBalanceFromAccount = require('../services/getBalanceFromAccount');
 
-export default async (req, res) => {
+module.exports = async (req, res) => {
   try {
     const { id } = req.params;
 

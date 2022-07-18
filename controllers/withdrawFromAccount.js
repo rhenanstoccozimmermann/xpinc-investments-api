@@ -1,6 +1,6 @@
-import withdrawFromAccount from '../services/withdrawFromAccount';
+const withdrawFromAccount = require('../services/withdrawFromAccount');
 
-export default async (req, res) => {
+module.exports = async (req, res) => {
   try {
     const { accountId, withdrawAmount } = req.body;
 

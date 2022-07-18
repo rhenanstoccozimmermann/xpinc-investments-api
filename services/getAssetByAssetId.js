@@ -1,6 +1,6 @@
-import { Asset } from '../models';
+const { Asset } = require('../models');
 
-export default async (id) => {
+module.exports = async (id) => {
   const asset = await Asset.findByPk(id);
 
   if (!asset) {

@@ -1,4 +1,4 @@
-import { Account } from '../models';
+const { Account } = require('../models');
 
 const validateWithdrawAmount = (availableBalance, requestedWithdraw) => {
   if (requestedWithdraw <= 0) {
@@ -22,7 +22,7 @@ const validateWithdrawAmount = (availableBalance, requestedWithdraw) => {
   return {};
 };
 
-export default async (accountId, withdrawAmount) => {
+module.exports = async (accountId, withdrawAmount) => {
   const account = await Account.findByPk(accountId);
 
   const withdrawAmountValidation = validateWithdrawAmount(account.balance, withdrawAmount);

@@ -1,9 +1,9 @@
-import express from 'express';
+const express = require('express');
 
-// import login from './controllers/login';
-import investmentsRoutes from './routes/investmentsRoutes';
-import assetsRoutes from './routes/assetsRoutes';
-import accountsRoutes from './routes/accountsRoutes';
+// const login = require('./controllers/login');
+const investmentsRoutes = require('./routes/investmentsRoutes');
+const assetsRoutes = require('./routes/assetsRoutes');
+const accountsRoutes = require('./routes/accountsRoutes');
 
 const app = express();
 
@@ -14,4 +14,4 @@ app.use('/investments', investmentsRoutes);
 app.use('/assets', assetsRoutes);
 app.use('/accounts', accountsRoutes);
 
-export default app;
+module.exports = app;

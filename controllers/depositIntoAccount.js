@@ -1,6 +1,6 @@
-import depositIntoAccount from '../services/depositIntoAccount';
+const depositIntoAccount = require('../services/depositIntoAccount');
 
-export default async (req, res) => {
+module.exports = async (req, res) => {
   try {
     const { accountId, depositAmount } = req.body;
 

@@ -1,4 +1,4 @@
-import { Account } from '../models';
+const { Account } = require('../models');
 
 const validateDepositAmount = (requestedDeposit) => {
   if (requestedDeposit <= 0) {
@@ -13,7 +13,7 @@ const validateDepositAmount = (requestedDeposit) => {
   return {};
 };
 
-export default async (accountId, depositAmount) => {
+module.exports = async (accountId, depositAmount) => {
   const account = await Account.findByPk(accountId);
 
   const depositAmountValidation = validateDepositAmount(depositAmount);

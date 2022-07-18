@@ -1,6 +1,6 @@
-import { AccountAsset, Asset } from '../models';
+const { AccountAsset, Asset } = require('../models');
 
-export default async (accountId) => {
+module.exports = async (accountId) => {
   const assets = await AccountAsset.findAll({
     where: { accountId },
     include: [

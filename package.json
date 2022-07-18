@@ -2,8 +2,9 @@
   "name": "xpinc-investments-api",
   "version": "1.0.0",
   "description": "<div align=\"center\">   <a href=\"https://github.com/rhenanstoccozimmermann/xpinc-investments-api\">     <img src=\".github/xpinc.png\" alt=\"Desafio Técnico Turma XP - Trybe\" width=\"400px\">   </a>   <h3 align=\"center\">Desafio Técnico Turma XP - Trybe | XP Inc.</h3>   <p align=\"center\">     Trata-se de desafio técnico proposto pela XP Inc. no processo seletivo da Turma XP - Trybe, no qual foi desenvolvido um aplicativo de investimento em ações, com algumas funcionalidades de conta digital.   </p> </div>",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

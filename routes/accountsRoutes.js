@@ -1,8 +1,8 @@
-import express from 'express';
+const express = require('express');
 
-import depositIntoAccount from '../controllers/depositIntoAccount';
-import withdrawFromAccount from '../controllers/withdrawFromAccount';
-import getBalanceFromAccount from '../controllers/getBalanceFromAccount';
+const depositIntoAccount = require('../controllers/depositIntoAccount');
+const withdrawFromAccount = require('../controllers/withdrawFromAccount');
+const getBalanceFromAccount = require('../controllers/getBalanceFromAccount');
 
 const accountsRoutes = express.Router();
 
@@ -10,4 +10,4 @@ accountsRoutes.put('/deposit', depositIntoAccount);
 accountsRoutes.put('/withdraw', withdrawFromAccount);
 accountsRoutes.get('/account/:id', getBalanceFromAccount);
 
-export default accountsRoutes;
+module.exports = accountsRoutes;
