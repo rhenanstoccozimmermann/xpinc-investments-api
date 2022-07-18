@@ -1,5 +1,9 @@
 import express from 'express';
 
-const investimentsRoutes = express.Router();
+import buyAsset from '../controllers/buyAsset';
 
-export default investimentsRoutes;
+const investmentsRoutes = express.Router();
+
+investmentsRoutes.post('/buy', buyAsset);
+
+export default investmentsRoutes;
