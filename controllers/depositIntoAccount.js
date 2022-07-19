@@ -2,11 +2,9 @@ const depositIntoAccount = require('../services/depositIntoAccount');
 
 module.exports = async (req, res) => {
   try {
-    const { accountId, depositAmount } = req.body;
+    const { accountId, amount } = req.body;
 
-    // const clientId = req.clientId;
-
-    const result = await depositIntoAccount(accountId, depositAmount);
+    const result = await depositIntoAccount(accountId, amount);
 
     if (result.error) {
       const { code, message } = result.error;

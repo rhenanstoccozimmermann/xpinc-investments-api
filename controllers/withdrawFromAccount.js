@@ -2,11 +2,9 @@ const withdrawFromAccount = require('../services/withdrawFromAccount');
 
 module.exports = async (req, res) => {
   try {
-    const { accountId, withdrawAmount } = req.body;
+    const { accountId, amount } = req.body;  
 
-    // const clientId = req.clientId;
-
-    const result = await withdrawFromAccount(accountId, withdrawAmount);
+    const result = await withdrawFromAccount(accountId, amount);
 
     if (result.error) {
       const { code, message } = result.error;

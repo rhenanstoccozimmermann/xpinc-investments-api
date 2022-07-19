@@ -22,14 +22,14 @@ const validateWithdrawAmount = (availableBalance, requestedWithdraw) => {
   return {};
 };
 
-module.exports = async (accountId, withdrawAmount) => {
+module.exports = async (accountId, amount) => {
   const account = await Account.findByPk(accountId);
 
-  const withdrawAmountValidation = validateWithdrawAmount(account.balance, withdrawAmount);
+  const withdrawAmountValidation = validateWithdrawAmount(account.balance, amount);
 
   if (withdrawAmountValidation.error) return withdrawAmountValidation;
 
-  await Account.update({ balance: (account.balance - withdrawAmount) }, { where: { accountId } });
+  await Account.update({ balance: (account.balance - amount) }, { where: { accountId } });
 
   const updatedAccount = await Account.findByPk(accountId);
 

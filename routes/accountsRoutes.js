@@ -8,8 +8,104 @@ const validateJWT = require('../middlewares/validateJWT');
 
 const accountsRoutes = express.Router();
 
+/**
+ * @swagger
+ *  tags:
+ *    name: /accounts endpoints
+ */
+
+/**
+ * @swagger
+ *  components:
+ *    schemas: 
+ *      Transfer:
+ *        type: object
+ *        required:
+ *          - accountId
+ *          - amount 
+ *        properties:
+ *          accountId:
+ *            type: number
+ *          amount:
+ *            type: number
+ *        example:
+ *          accountId: 1
+ *          amount: 100.55
+ *      Account:
+ *        type: object
+ *        required:
+ *          - id
+ *          - balance
+ *        properties:
+ *          id:
+ *            type: number
+ *          balance:
+ *            type: number
+ *        example:
+ *          id: 1
+ *          balance: 100.55
+ */
+
+/**
+ * @swagger
+ *  /accounts/deposit:
+ *    put:
+ *      tags: [/accounts endpoints]
+ *      description: O endpoint realiza um depósito na conta indicada
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Transfer'
+ *      responses:
+ *        200:
+ *          content:
+ *            application/json:
+ *              schema:       
+ *                $ref: '#/components/schemas/Transfer'
+ */
 accountsRoutes.put('/deposit', validateJWT, depositIntoAccount);
+
+/**
+ * @swagger
+ *  /accounts/withdraw:
+ *    put:
+ *      tags: [/accounts endpoints]
+ *      description: O endpoint realiza um saque na conta indicada
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Transfer'
+ *      responses:
+ *        200:
+ *          content:
+ *            application/json:
+ *              schema:       
+ *                $ref: '#/components/schemas/Transfer'
+ */
 accountsRoutes.put('/withdraw', validateJWT, withdrawFromAccount);
+
+/**
+ * @swagger
+ *  /accounts/account/{id}:
+ *    get:
+ *      tags: [/accounts endpoints]
+ *      description: O endpoint retorna as informações da conta
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          type: number
+ *          required: true
+ *      responses:
+ *        200:
+ *          content:
+ *            application/json:
+ *              schema: 
+ *                $ref: '#/components/schemas/Account'
+ */
 accountsRoutes.get('/account/:id', validateJWT, getBalanceFromAccount);
 
 module.exports = accountsRoutes;
