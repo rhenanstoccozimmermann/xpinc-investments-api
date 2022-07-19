@@ -21,19 +21,23 @@ const assetsRoutes = express.Router();
  *        type: object
  *        required:
  *          - id
+ *          - ticker
  *          - quantity
  *          - price
  *        properties:
  *          id:
  *            type: number
+ *          ticker:
+ *            type: string
  *          quantity:
  *            type: number
  *          price:
  *            type: number
  *        example:
  *          id: 1
+ *          ticker: BLAU3
  *          quantity: 1
- *          price: 100.55
+ *          price: 24.53
  */
 
 /**
