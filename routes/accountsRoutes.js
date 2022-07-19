@@ -56,7 +56,7 @@ const accountsRoutes = express.Router();
  *          password:
  *            type: string
  *        example:
- *          name: Warren Buffet
+ *          name: Mr. Buffet
  *          password: 12345
  */
 
