@@ -42,6 +42,8 @@ const investmentsRoutes = express.Router();
  *    post:
  *      tags: [/investments endpoints]
  *      description: O endpoint realiza a compra de um ativo
+ *      security:
+ *        - bearerAuth: []
  *      requestBody:
  *        required: true
  *        content:
@@ -63,6 +65,8 @@ investmentsRoutes.post('/buy', validateJWT, buyAsset);
  *    put:
  *      tags: [/investments endpoints]
  *      description: O endpoint realiza a venda de um ativo
+ *      security:
+ *        - bearerAuth: []
  *      requestBody:
  *        required: true
  *        content:

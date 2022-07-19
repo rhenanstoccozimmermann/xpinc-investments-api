@@ -42,6 +42,8 @@ const assetsRoutes = express.Router();
  *    get:
  *      tags: [/assets endpoints]
  *      description: O endpoint retorna uma lista de ativos encontrados na carteira
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - in: path
  *          name: id
@@ -64,6 +66,8 @@ assetsRoutes.get('/account/:id', validateJWT, getAssetsByAccountId);
  *    get:
  *      tags: [/assets endpoints]
  *      description: O endpoint retorna o ativo encontrado na corretora
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - in: path
  *          name: id

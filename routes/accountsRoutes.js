@@ -52,6 +52,8 @@ const accountsRoutes = express.Router();
  *    put:
  *      tags: [/accounts endpoints]
  *      description: O endpoint realiza um depósito na conta indicada
+ *      security:
+ *        - bearerAuth: []
  *      requestBody:
  *        required: true
  *        content:
@@ -73,6 +75,8 @@ accountsRoutes.put('/deposit', validateJWT, depositIntoAccount);
  *    put:
  *      tags: [/accounts endpoints]
  *      description: O endpoint realiza um saque na conta indicada
+ *      security:
+ *        - bearerAuth: []
  *      requestBody:
  *        required: true
  *        content:
@@ -94,6 +98,8 @@ accountsRoutes.put('/withdraw', validateJWT, withdrawFromAccount);
  *    get:
  *      tags: [/accounts endpoints]
  *      description: O endpoint retorna as informações da conta
+ *      security:
+ *        - bearerAuth: []
  *      parameters:
  *        - in: path
  *          name: id
