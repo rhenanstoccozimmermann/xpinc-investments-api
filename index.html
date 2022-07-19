@@ -10,12 +10,12 @@
     <h1>XP Inc. Investments API</h1>
     <p>Trata-se de desafio técnico proposto pela XP Inc. no processo seletivo da Turma XP - Trybe, no qual foi desenvolvido um aplicativo de investimento em ações, com algumas funcionalidades de conta digital.</p>
     <p>Para mais informações, acesse o respositório abaixo:</p>
-    <a href="https://github.com/rhenanstoccozimmermann/xpinc-investments-api" target="_blank">GitHub</a>
+    <a href="https://github.com/rhenanstoccozimmermann/xpinc-investments-api" target="_blank">GitHub - Rhenan Stocco Zimmermann</a>
     <h2>Endpoints</h2>
     <h3>/docs</h3>
     <p>Documentação da API no Swagger.</p>
     <h3>/login</h3>
-    <p>O endpoint se destina à autenticação e à autorização JWT.</p>
+    <p>O endpoint se destina à autenticação e autorização JWT.</p>
     <p>Recebe como entradas o nome e a senha do cliente.</p>
     <p>Retorna um token.</p>
     <h3>/investments/buy</h3>
@@ -33,12 +33,16 @@
     <h3>/accounts/deposit</h3>
     <p>O endpoint realiza um depósito na conta indicada.</p>
     <p>Recebe como entradas o código da conta e o valor do depósito.</p>
-    <p>Retorna o código da conta e o saldo atual da conta.</p>
+    <p>Retorna o código e o saldo atual da conta.</p>
     <h3>/accounts/withdraw</h3>
     <p>O endpoint realiza um saque na conta indicada.</p>
     <p>Recebe como entradas o código da conta e o valor do saque.</p>
-    <p>Retorna o código da conta e o saldo atual da conta.</p>
+    <p>Retorna o código e o saldo atual da conta.</p>
     <h3>/accounts/account/:id</h3>
-    <p>O endpoint retorna o código da conta e o saldo da conta.</p>
+    <p>O endpoint retorna o código e o saldo da conta.</p>
+    <h3>/accounts/account</h3>
+    <p>O endpoint cria uma nova conta na corretora.</p>
+    <p>Recebe como entradas o nome do cliente e uma senha.</p>
+    <p>Retorna o código e o saldo da nova conta.</p>
   </body>
 </html>

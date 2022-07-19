@@ -3,6 +3,7 @@ const express = require('express');
 const depositIntoAccount = require('../controllers/depositIntoAccount');
 const withdrawFromAccount = require('../controllers/withdrawFromAccount');
 const getBalanceFromAccount = require('../controllers/getBalanceFromAccount');
+const createAccount = require('../controllers/createAccount');
 
 const validateJWT = require('../middlewares/validateJWT');
 
@@ -44,6 +45,19 @@ const accountsRoutes = express.Router();
  *        example:
  *          id: 1
  *          balance: 100.55
+ *      Client:
+ *        type: object
+ *        required:
+ *          - name
+ *          - password 
+ *        properties:
+ *          name:
+ *            type: string
+ *          password:
+ *            type: string
+ *        example:
+ *          name: Warren Buffet
+ *          password: 12345
  */
 
 /**
@@ -113,5 +127,26 @@ accountsRoutes.put('/withdraw', validateJWT, withdrawFromAccount);
  *                $ref: '#/components/schemas/Account'
  */
 accountsRoutes.get('/account/:id', validateJWT, getBalanceFromAccount);
+
+/**
+ * @swagger
+ *  /accounts/account:
+ *    post:
+ *      tags: [/accounts endpoints]
+ *      description: O endpoint cria uma nova conta na corretora
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Client'
+ *      responses:
+ *        201:
+ *          content:
+ *            application/json:
+ *              schema:       
+ *                $ref: '#/components/schemas/Account'
+ */
+accountsRoutes.post('/account', createAccount);
 
 module.exports = accountsRoutes;
