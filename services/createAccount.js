@@ -1,8 +1,11 @@
 const Sequelize = require('sequelize');
 const config = require('../config/config');
+require('dotenv').config();
 const { Client, Account } = require('../models');
 
-const sequelize = new Sequelize(config.process.env.NODE_ENV);
+const env = process.env.NODE_ENV || 'development';
+
+const sequelize = new Sequelize(config[env]);
 
 const validateAccount = (name, clients) => {
   if (clients && clients.some((el) => el.name === name)) {
