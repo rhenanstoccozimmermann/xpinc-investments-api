@@ -4,6 +4,7 @@ const depositIntoAccount = require('../controllers/depositIntoAccount');
 const withdrawFromAccount = require('../controllers/withdrawFromAccount');
 const getBalanceFromAccount = require('../controllers/getBalanceFromAccount');
 const createAccount = require('../controllers/createAccount');
+const removeAccount = require('../controllers/removeAccount');
 
 const validateJWT = require('../middlewares/validateJWT');
 
@@ -148,5 +149,27 @@ accountsRoutes.get('/account/:id', validateJWT, getBalanceFromAccount);
  *                $ref: '#/components/schemas/Account'
  */
 accountsRoutes.post('/account', createAccount);
+
+/**
+ * @swagger
+ *  /accounts/account/{id}:
+ *    delete:
+ *      tags: [/accounts endpoints]
+ *      description: O endpoint remove uma conta na corretora
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          type: number
+ *          required: true
+ *      responses:
+ *        200:
+ *          content:
+ *            application/json:
+ *              schema: 
+ *                $ref: '#/components/schemas/Account'
+ */
+accountsRoutes.delete('/account/:id', validateJWT, removeAccount);
 
 module.exports = accountsRoutes;
