@@ -25,7 +25,9 @@ module.exports = async (req, res, next) => {
   try {
     if (!validateRequest(req, res)) return;
 
-    const token = req.headers.authorization;
+    const authorization = req.headers.authorization.split(' ');
+
+    const token = (authorization.length === 2) ? authorization[1] : authorization[0];
   
     const secret = process.env.JWT_SECRET;
 
