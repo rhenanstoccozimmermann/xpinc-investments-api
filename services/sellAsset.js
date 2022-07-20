@@ -1,7 +1,7 @@
 const { AccountAsset } = require('../models');
 
 const validateQuantity = (availableQuantity, requestedQuantity) => {
-  if (availableQuantity < requestedQuantity) {
+  if (Number(availableQuantity) < Number(requestedQuantity)) {
     return {
       error: {
         code: 400,
@@ -20,13 +20,13 @@ module.exports = async (accountId, assetId, quantity) => {
 
   if (quantityValidation.error) return quantityValidation;
 
-  if (accountAsset.quantity === quantity) {
+  if (Number(accountAsset.quantity) === Number(quantity)) {
     await AccountAsset.destroy({ where: { accountId, assetId } });
 
     return { code: 200, content: { accountId, assetId, quantity: 0 } };
   }
 
-  await AccountAsset.update({ quantity: (accountAsset.quantity - quantity) }, { where: { accountId, assetId } });
+  await AccountAsset.update({ quantity: (Number(accountAsset.quantity) - Number(quantity)) }, { where: { accountId, assetId } });
 
   const updatedAccountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
 
