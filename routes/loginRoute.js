@@ -14,18 +14,18 @@ const loginRoute = express.Router();
  * @swagger
  *  components:
  *    schemas: 
- *      Client:
+ *      Login:
  *        type: object
  *        required:
- *          - name
+ *          - id
  *          - password
  *        properties:
- *          name:
- *            type: string
+ *          id:
+ *            type: number
  *          password:
  *            type: string
  *        example:
- *          name: Mr. Buffet
+ *          id: 1
  *          password: 12345
  *      Token:
  *        type: object
@@ -49,7 +49,7 @@ const loginRoute = express.Router();
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Client'
+ *              $ref: '#/components/schemas/Login'
  *      responses:
  *        200:
  *          content:
