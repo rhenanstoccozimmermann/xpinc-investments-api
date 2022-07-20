@@ -1,7 +1,7 @@
 const { Account } = require('../models');
 
 const validateDepositAmount = (requestedDeposit) => {
-  if (requestedDeposit <= 0) {
+  if (Number(requestedDeposit) <= 0) {
     return {
       error: {
         code: 400,
@@ -13,16 +13,16 @@ const validateDepositAmount = (requestedDeposit) => {
   return {};
 };
 
-module.exports = async (accountId, amount) => {
-  const account = await Account.findByPk(accountId);
+module.exports = async (id, amount) => {
+  const account = await Account.findByPk(id);
 
   const depositAmountValidation = validateDepositAmount(amount);
 
   if (depositAmountValidation.error) return depositAmountValidation;
 
-  await Account.update({ balance: (account.balance + amount) }, { where: { accountId } });
+  await Account.update({ balance: (Number(account.balance) + Number(amount)) }, { where: { id } });
 
-  const updatedAccount = await Account.findByPk(accountId);
+  const updatedAccount = await Account.findByPk(id);
 
   return { code: 200, content: updatedAccount };
 };

@@ -24,15 +24,15 @@ const accountsRoutes = express.Router();
  *      Transfer:
  *        type: object
  *        required:
- *          - accountId
+ *          - id
  *          - amount 
  *        properties:
- *          accountId:
+ *          id:
  *            type: number
  *          amount:
  *            type: number
  *        example:
- *          accountId: 1
+ *          id: 1
  *          amount: 100.55
  *      Account:
  *        type: object
@@ -81,7 +81,7 @@ const accountsRoutes = express.Router();
  *          content:
  *            application/json:
  *              schema:       
- *                $ref: '#/components/schemas/Transfer'
+ *                $ref: '#/components/schemas/Account'
  */
 accountsRoutes.put('/deposit', validateJWT, depositIntoAccount);
 
