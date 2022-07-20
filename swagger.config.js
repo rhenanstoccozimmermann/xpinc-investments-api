@@ -21,6 +21,7 @@ module.exports = {
     },
   },
   apis: [
+    './routes/loginRoute.js',
     './routes/investmentsRoutes.js',
     './routes/assetsRoutes.js',
     './routes/accountsRoutes.js',

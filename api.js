@@ -4,7 +4,7 @@ const swaggerUi = require('swagger-ui-express');
 
 const swaggerConfig = require('./swagger.config');
 
-const login = require('./controllers/login');
+const loginRoute = require('./routes/loginRoute');
 const investmentsRoutes = require('./routes/investmentsRoutes');
 const assetsRoutes = require('./routes/assetsRoutes');
 const accountsRoutes = require('./routes/accountsRoutes');
@@ -21,7 +21,7 @@ app.get('/', (_req, res) => {
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
-app.post('/login', login);
+app.use('/login', loginRoute);
 app.use('/investments', investmentsRoutes);
 app.use('/assets', assetsRoutes);
 app.use('/accounts', accountsRoutes);
