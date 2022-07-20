@@ -51,15 +51,28 @@ const accountsRoutes = express.Router();
  *        type: object
  *        required:
  *          - name
+ *          - identityCard
  *          - password 
  *        properties:
  *          name:
  *            type: string
+ *          identityCard:
+ *            type: number
  *          password:
  *            type: string
  *        example:
  *          name: Mr. Buffet
+ *          identityCard: 11111111111
  *          password: 12345
+ *      Password:
+ *        type: object
+ *        required:
+ *          - password 
+ *        properties:
+ *          password:
+ *            type: string
+ *        example:
+ *          password: 54321
  */
 
 /**
@@ -191,13 +204,13 @@ accountsRoutes.delete('/account/:id', validateJWT, removeAccount);
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Client'
+ *              $ref: '#/components/schemas/Password'
  *      responses:
  *        200:
  *          content:
  *            application/json:
  *              schema: 
- *                $ref: '#/components/schemas/Client'
+ *                $ref: '#/components/schemas/Password'
  */
 accountsRoutes.put('/account/:id', validateJWT, updateAccount);
 

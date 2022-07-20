@@ -2,9 +2,9 @@ const createAccount = require('../services/createAccount');
 
 module.exports = async (req, res) => {
   try {
-    const { name, password } = req.body;
+    const { name, identityCard, password } = req.body;
 
-    const result = await createAccount(name, password);
+    const result = await createAccount(name, identityCard, password);
 
     if (result.error) {
       const { code, message } = result.error;

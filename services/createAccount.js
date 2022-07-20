@@ -7,12 +7,12 @@ const env = process.env.NODE_ENV || 'development';
 
 const sequelize = new Sequelize(config[env]);
 
-const validateAccount = (name, clients) => {
-  if (clients && clients.some((el) => el.name === name)) {
+const validateAccount = (identityCard, clients) => {
+  if (clients && clients.some((el) => Number(el.identityCard) === Number(identityCard))) {
     return {
       error: {
         code: 409,
-        message: `O nome informado (${name}) já possui uma conta na corretora.`,
+        message: `A cédula de identidade informada (${identityCard}) já possui uma conta na corretora.`,
       },
     };
   }
@@ -20,12 +20,12 @@ const validateAccount = (name, clients) => {
   return {};
 };
 
-const executeTransaction = async (name, password) => {
+const executeTransaction = async (name, identityCard, password) => {
   try {
     return await sequelize.transaction(async (t) => {
       const newAccount = await Account.create({ balance: 0 }, { transaction: t });
 
-      await Client.create({ name, password, accountId: newAccount.id }, { transaction: t });
+      await Client.create({ name, identityCard, password, accountId: newAccount.id }, { transaction: t });
       
       return newAccount;
     });
@@ -34,14 +34,14 @@ const executeTransaction = async (name, password) => {
   }
 };
 
-module.exports = async (name, password) => {
+module.exports = async (name, identityCard, password) => {
   const clients = await Client.findAll();
 
-  const accountValidation = validateAccount(name, clients);
+  const accountValidation = validateAccount(identityCard, clients);
 
   if (accountValidation.error) return accountValidation;
 
-  const newAccount = await executeTransaction(name, password);
+  const newAccount = await executeTransaction(name, identityCard, password);
 
   return { code: 201, content: newAccount };
 };

@@ -12,6 +12,11 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      identityCard: {
+        type: Sequelize.INTEGER,
+        field: 'identity_card',
+        allowNull: false,
         unique: true,
       },
       password: {
