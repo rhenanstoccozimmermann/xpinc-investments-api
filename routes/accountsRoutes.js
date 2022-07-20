@@ -57,7 +57,7 @@ const accountsRoutes = express.Router();
  *          name:
  *            type: string
  *          identityCard:
- *            type: number
+ *            type: string
  *          password:
  *            type: string
  *        example:

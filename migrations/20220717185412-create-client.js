@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false,
       },
       identityCard: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         field: 'identity_card',
         allowNull: false,
         unique: true,

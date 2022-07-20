@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
     name: DataTypes.STRING,
-    identityCard: DataTypes.INTEGER,
+    identityCard: DataTypes.STRING,
     password: DataTypes.STRING,
     accountId: {
       type: DataTypes.INTEGER,
