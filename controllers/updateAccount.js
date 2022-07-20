@@ -4,9 +4,9 @@ module.exports = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const { name, password } = req.body;
+    const { password } = req.body;
 
-    const result = await updateAccount(id, name, password);
+    const result = await updateAccount(id, password);
 
     if (result.error) {
       const { code, message } = result.error;
