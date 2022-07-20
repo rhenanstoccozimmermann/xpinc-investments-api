@@ -104,7 +104,7 @@ accountsRoutes.put('/deposit', validateJWT, depositIntoAccount);
  *          content:
  *            application/json:
  *              schema:       
- *                $ref: '#/components/schemas/Transfer'
+ *                $ref: '#/components/schemas/Account'
  */
 accountsRoutes.put('/withdraw', validateJWT, withdrawFromAccount);
 

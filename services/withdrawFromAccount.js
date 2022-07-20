@@ -1,7 +1,7 @@
 const { Account } = require('../models');
 
 const validateWithdrawAmount = (availableBalance, requestedWithdraw) => {
-  if (requestedWithdraw <= 0) {
+  if (Number(requestedWithdraw) <= 0) {
     return {
       error: {
         code: 400,
@@ -10,7 +10,7 @@ const validateWithdrawAmount = (availableBalance, requestedWithdraw) => {
     };
   }
 
-  if (availableBalance < requestedWithdraw) {
+  if (Number(availableBalance) < Number(requestedWithdraw)) {
     return {
       error: {
         code: 400,
@@ -22,16 +22,16 @@ const validateWithdrawAmount = (availableBalance, requestedWithdraw) => {
   return {};
 };
 
-module.exports = async (accountId, amount) => {
-  const account = await Account.findByPk(accountId);
+module.exports = async (id, amount) => {
+  const account = await Account.findByPk(id);
 
   const withdrawAmountValidation = validateWithdrawAmount(account.balance, amount);
 
   if (withdrawAmountValidation.error) return withdrawAmountValidation;
 
-  await Account.update({ balance: (account.balance - amount) }, { where: { accountId } });
+  await Account.update({ balance: (Number(account.balance) - Number(amount)) }, { where: { id } });
 
-  const updatedAccount = await Account.findByPk(accountId);
+  const updatedAccount = await Account.findByPk(id);
 
   return { code: 200, content: updatedAccount };
 };
