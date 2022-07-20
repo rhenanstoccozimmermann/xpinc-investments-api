@@ -41,7 +41,7 @@ const loginRoute = express.Router();
 /**
  * @swagger
  *  /login:
- *    post:
+ *    get:
  *      tags: [/login endpoint]
  *      description: O endpoint realiza o login do cliente
  *      requestBody:
@@ -57,6 +57,6 @@ const loginRoute = express.Router();
  *              schema:       
  *                $ref: '#/components/schemas/Token'
  */
-loginRoute.post('/', login);
+loginRoute.get('/', login);
 
 module.exports = loginRoute;
