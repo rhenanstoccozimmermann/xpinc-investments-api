@@ -17,6 +17,7 @@ module.exports = {
       },
       assetId: {
         type: Sequelize.INTEGER,
+        field: 'asset_id',
         primaryKey: true,
         allowNull: false,
         references: {
