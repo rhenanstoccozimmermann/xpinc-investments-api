@@ -7,21 +7,21 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false
+        allowNull: false,
       },
       ticker: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
       },
       quantity: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       price: {
         type: Sequelize.DECIMAL(65, 2),
-        allowNull: false
-      }
+        allowNull: false,
+      },
     });
   },
   async down(queryInterface, _Sequelize) {

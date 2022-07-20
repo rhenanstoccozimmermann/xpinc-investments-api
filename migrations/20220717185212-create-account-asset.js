@@ -10,10 +10,10 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'Accounts',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
       assetId: {
         type: Sequelize.INTEGER,
@@ -21,15 +21,15 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'Assets',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
       quantity: {
         type: Sequelize.INTEGER,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     });
   },
   async down(queryInterface, _Sequelize) {

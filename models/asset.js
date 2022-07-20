@@ -3,16 +3,16 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     ticker: DataTypes.STRING,
     quantity: DataTypes.INTEGER,
-    price: DataTypes.DECIMAL(65, 2)
+    price: DataTypes.DECIMAL(65, 2),
   },
   {
     timestamps: false,
     underscored: true,
-    tableName: 'Assets'
+    tableName: 'Assets',
   });
 
   return Asset;

@@ -7,12 +7,12 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false
+        allowNull: false,
       },
       balance: {
         type: Sequelize.DECIMAL(65, 2),
-        allowNull: false
-      }
+        allowNull: false,
+      },
     });
   },
   async down(queryInterface, _Sequelize) {

@@ -2,18 +2,18 @@ module.exports = (sequelize, DataTypes) => {
   const AccountAsset = sequelize.define('AccountAsset', {
     accountId: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
     },
     assetId: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
     },
-    quantity: DataTypes.INTEGER
+    quantity: DataTypes.INTEGER,
   },
   {
     timestamps: false,
     underscored: true,
-    tableName: 'AccountAssets'
+    tableName: 'AccountAssets',
   });
 
   AccountAsset.associate = (models) => {
@@ -21,13 +21,13 @@ module.exports = (sequelize, DataTypes) => {
       as: 'assets',
       through: AccountAsset,
       foreignKey: 'accountId',
-      otherKey: 'assetId'
+      otherKey: 'assetId',
     });
     models.Asset.belongsToMany(models.Account, {
       as: 'accounts',
       through: AccountAsset,
       foreignKey: 'assetId',
-      otherKey: 'accountId'
+      otherKey: 'accountId',
     });
   };
 

@@ -3,14 +3,14 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
-    balance: DataTypes.DECIMAL(65, 2)
+    balance: DataTypes.DECIMAL(65, 2),
   },
   {
     timestamps: false,
     underscored: true,
-    tableName: 'Accounts'
+    tableName: 'Accounts',
   });
 
   Account.associate = (models) => {

@@ -3,19 +3,19 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     name: DataTypes.STRING,
     password: DataTypes.STRING,
     accountId: {
       type: DataTypes.INTEGER,
-      foreignKey: true
-    }
+      foreignKey: true,
+    },
   },
   {
     timestamps: false,
     underscored: true,
-    tableName: 'Clients'
+    tableName: 'Clients',
   });
 
   Client.associate = (models) => {

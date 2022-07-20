@@ -7,16 +7,16 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false
+        allowNull: false,
       },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       accountId: {
         type: Sequelize.INTEGER,
@@ -24,11 +24,11 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'Accounts',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
-      }
+        onDelete: 'CASCADE',
+      },
     });
   },
   async down(queryInterface, _Sequelize) {
