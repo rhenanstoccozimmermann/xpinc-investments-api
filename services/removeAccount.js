@@ -17,7 +17,7 @@ const validateAccount = (account) => {
     };
   }
 
-  if (account.balance > 0) {
+  if (Number(account.balance) > 0) {
     return {
       error: {
         code: 400,
