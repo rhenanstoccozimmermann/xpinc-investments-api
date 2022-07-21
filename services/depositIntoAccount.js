@@ -13,16 +13,18 @@ const validateDepositAmount = (requestedDeposit) => {
   return {};
 };
 
-module.exports = async (id, amount) => {
-  const account = await Account.findByPk(id);
+module.exports = async (accountId, amount) => {
+  const account = await Account.findByPk(accountId);
 
   const depositAmountValidation = validateDepositAmount(amount);
 
   if (depositAmountValidation.error) return depositAmountValidation;
 
-  await Account.update({ balance: (Number(account.balance) + Number(amount)) }, { where: { id } });
+  await Account.update({ balance: (Number(account.balance) + Number(amount)) }, { where: { id: accountId } });
 
-  const updatedAccount = await Account.findByPk(id);
+  const updatedAccount = await Account.findByPk(accountId);
 
-  return { code: 200, content: updatedAccount };
+  const { id, balance } = updatedAccount;
+
+  return { code: 200, content: { accountId: id, balance } };
 };

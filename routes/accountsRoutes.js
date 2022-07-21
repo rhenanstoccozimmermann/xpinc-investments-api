@@ -24,15 +24,15 @@ const accountsRoutes = express.Router();
  *      Transfer:
  *        type: object
  *        required:
- *          - id
+ *          - accountId
  *          - amount 
  *        properties:
- *          id:
+ *          accountId:
  *            type: number
  *          amount:
  *            type: number
  *        example:
- *          id: 1
+ *          accountId: 1
  *          amount: 100.55
  *      Account:
  *        type: object
