@@ -44,9 +44,9 @@ const executeTransaction = async (accountId) => {
 };
 
 module.exports = async (accountId) => {
-  const removedAccount = await Account.findByPk(accountId);
+  const account = await Account.findByPk(accountId);
 
-  const accountValidation = validateAccount(removedAccount);
+  const accountValidation = validateAccount(account);
 
   if (accountValidation.error) return accountValidation;
 
@@ -54,5 +54,5 @@ module.exports = async (accountId) => {
 
   if (transactionResult.error) return transactionResult;
 
-  return { code: 200, content: removedAccount };
+  return { code: 200, content: { message: `A conta ${accountId} foi removida com sucesso.` } };
 };

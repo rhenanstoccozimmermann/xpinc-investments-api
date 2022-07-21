@@ -73,6 +73,15 @@ const accountsRoutes = express.Router();
  *            type: string
  *        example:
  *          password: 54321
+ *      Message:
+ *        type: object
+ *        required:
+ *          - message 
+ *        properties:
+ *          message:
+ *            type: string
+ *        example:
+ *          message: A ação foi concluída com sucesso.
  */
 
 /**
@@ -182,7 +191,7 @@ accountsRoutes.post('/account', createAccount);
  *          content:
  *            application/json:
  *              schema: 
- *                $ref: '#/components/schemas/Account'
+ *                $ref: '#/components/schemas/Message'
  */
 accountsRoutes.delete('/account/:id', validateJWT, removeAccount);
 
@@ -210,7 +219,7 @@ accountsRoutes.delete('/account/:id', validateJWT, removeAccount);
  *          content:
  *            application/json:
  *              schema: 
- *                $ref: '#/components/schemas/Password'
+ *                $ref: '#/components/schemas/Message'
  */
 accountsRoutes.put('/account/:id', validateJWT, updateAccount);
 
