@@ -1,21 +1,29 @@
-const { AccountAsset, Asset } = require('../models');
+const { Account, Asset } = require('../models');
 
 module.exports = async (accountId) => {
-  const assets = await AccountAsset.findAll({
-    where: { accountId },
+  const accountAsset = await Account.findOne({
+    where: { id: accountId },
     include: [
-    { model: Asset, as: 'assets', attributes: { exclude: 'quantity' } },
+    { model: Asset, as: 'assets' },
   ],
 });
 
-  if (!assets) {
+  if (!accountAsset.assets.length) {
     return {
       error: { 
         code: 404,
-        message: 'Ativo não encontrado na carteira.',
+        message: 'Não foram encontrados ativos na carteira.',
       },
     };
   }
+
+  const assets = accountAsset.assets.map(({ id, ticker, price, AccountAsset }) => ({
+    accountId: Number(accountId),
+    assetId: id,
+    ticker, 
+    price,
+    quantity: AccountAsset.quantity,
+  }));
 
   return { code: 200, content: assets };
 };

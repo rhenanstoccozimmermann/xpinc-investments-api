@@ -38,6 +38,31 @@ const assetsRoutes = express.Router();
  *          ticker: BLAU3
  *          quantity: 1
  *          price: 24.53
+ *      Investment:
+ *        type: object
+ *        required:
+ *          - accountId
+ *          - assetId
+ *          - ticker
+ *          - price
+ *          - quantity
+ *        properties:
+ *          accountId:
+ *            type: number
+ *          assetId:
+ *            type: number
+ *          ticker:
+ *            type:s tring
+ *          price:
+ *            type: string
+ *          quantity:
+ *            type: number
+ *        example:
+ *          accountId: 1
+ *          assetId: 1
+ *          ticker: BLAU3
+ *          price: "24.53"
+ *          quantity: 1
  */
 
 /**
@@ -60,7 +85,7 @@ const assetsRoutes = express.Router();
  *              schema:
  *                type: array
  *                items:   
- *                  $ref: '#/components/schemas/Asset'
+ *                  $ref: '#/components/schemas/Investment'
  */
 assetsRoutes.get('/account/:id', validateJWT, getAssetsByAccountId);
 
