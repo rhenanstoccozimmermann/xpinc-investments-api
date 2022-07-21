@@ -22,7 +22,7 @@
     <p>O endpoint realiza a compra de um ativo.</p>
     <p>Recebe como entradas o código da conta compradora, o código do ativo e a quantidade de ativos comprados.</p>
     <p>Retorna o ativo comprado, com o código da conta compradora, o código do ativo e a quantidade atual de ativos.</p>
-    <h3>PUT /investments/sell</h3>
+    <h3>POST /investments/sell</h3>
     <p>O endpoint realiza a venda de um ativo.</p>
     <p>Recebe como entradas o código da conta vendedora, o código do ativo e a quantidade de ativos vendidos.</p>
     <p>Retorna o ativo vendido, com o código da conta vendedora, o código do ativo e a quantidade atual de ativos.</p>
@@ -30,11 +30,11 @@
     <p>O endpoint retorna uma lista com o código da conta, o código, o ticker e o preço do ativo e a quantidade de ativos para cada ativo encontrado na carteira.</p>
     <h3>GET /assets/asset/:id</h3>
     <p>O endpoint retorna o código, o ticker e o preço do ativo e a quantidade de ativos na corretora .</p>
-    <h3>PUT /accounts/deposit</h3>
+    <h3>POST /accounts/deposit</h3>
     <p>O endpoint realiza um depósito na conta indicada.</p>
     <p>Recebe como entradas o código da conta e o valor do depósito.</p>
     <p>Retorna o código e o saldo atual da conta.</p>
-    <h3>PUT /accounts/withdraw</h3>
+    <h3>POST /accounts/withdraw</h3>
     <p>O endpoint realiza um saque na conta indicada.</p>
     <p>Recebe como entradas o código da conta e o valor do saque.</p>
     <p>Retorna o código e o saldo atual da conta.</p>

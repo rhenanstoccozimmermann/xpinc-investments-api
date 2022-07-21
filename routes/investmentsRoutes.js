@@ -62,7 +62,7 @@ investmentsRoutes.post('/buy', validateJWT, buyAsset);
 /**
  * @swagger
  *  /investments/sell:
- *    put:
+ *    post:
  *      tags: [/investments endpoints]
  *      description: O endpoint realiza a venda de um ativo
  *      security:
@@ -80,6 +80,6 @@ investmentsRoutes.post('/buy', validateJWT, buyAsset);
  *              schema:    
  *                $ref: '#/components/schemas/Transaction'
  */
-investmentsRoutes.put('/sell', validateJWT, sellAsset);
+investmentsRoutes.post('/sell', validateJWT, sellAsset);
 
 module.exports = investmentsRoutes;

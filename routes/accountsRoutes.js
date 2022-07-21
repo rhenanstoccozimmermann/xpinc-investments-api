@@ -87,7 +87,7 @@ const accountsRoutes = express.Router();
 /**
  * @swagger
  *  /accounts/deposit:
- *    put:
+ *    post:
  *      tags: [/accounts endpoints]
  *      description: O endpoint realiza um depósito na conta indicada
  *      security:
@@ -105,12 +105,12 @@ const accountsRoutes = express.Router();
  *              schema:       
  *                $ref: '#/components/schemas/Account'
  */
-accountsRoutes.put('/deposit', validateJWT, depositIntoAccount);
+accountsRoutes.post('/deposit', validateJWT, depositIntoAccount);
 
 /**
  * @swagger
  *  /accounts/withdraw:
- *    put:
+ *    post:
  *      tags: [/accounts endpoints]
  *      description: O endpoint realiza um saque na conta indicada
  *      security:
@@ -128,7 +128,7 @@ accountsRoutes.put('/deposit', validateJWT, depositIntoAccount);
  *              schema:       
  *                $ref: '#/components/schemas/Account'
  */
-accountsRoutes.put('/withdraw', validateJWT, withdrawFromAccount);
+accountsRoutes.post('/withdraw', validateJWT, withdrawFromAccount);
 
 /**
  * @swagger
