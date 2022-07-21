@@ -2,10 +2,10 @@ const { Client } = require('../models');
 const generateToken = require('../middlewares/generateToken');
 
 const validateRequest = (req, res) => {
-  const { id, password } = req.body;
+  const { accountId, password } = req.body;
 
-  if (id === undefined || !password) {
-    res.status(400).json({ message: 'O id e a senha são obrigatórios.' });
+  if (accountId === undefined || !password) {
+    res.status(400).json({ message: 'O código da conta e a senha são obrigatórios.' });
 
     return false;
   }
@@ -25,13 +25,13 @@ module.exports = async (req, res) => {
   try {
     if (!validateRequest(req, res)) return;
 
-    const { id, password } = req.body; // refatorar
+    const { accountId, password } = req.body;
 
-    const client = await Client.findOne({ where: { accountId: id, password } });
+    const client = await Client.findOne({ where: { accountId, password } });
 
     if (!validateClient(client)) throw Error;
 
-    const token = generateToken(id, password);
+    const token = generateToken(accountId, password);
 
     return res.status(200).json({ token });
   } catch (error) {

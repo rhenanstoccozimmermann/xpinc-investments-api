@@ -4,7 +4,7 @@ const { expect } = require('chai');
 const login = require('../../controllers/login');
 
 describe('Ao chamar o controller login', () => {
-  describe('quando o id e a senha não são encontrados', async () => {
+  describe('quando o código da conta e a senha não são encontrados', async () => {
     const response = {};
     const request = {};
 
@@ -23,10 +23,10 @@ describe('Ao chamar o controller login', () => {
       expect(response.status.calledWith(400)).to.be.equal(true);
     });
 
-    it('é chamado o json com a mensagem "O id e a senha são obrigatórios."', async () => {
+    it('é chamado o json com a mensagem "O código da conta e a senha são obrigatórios."', async () => {
       await login(request, response);
 
-      expect(response.json.calledWith({ message: 'O id e a senha são obrigatórios.' })).to.be.equal(true);
+      expect(response.json.calledWith({ message: 'O código da conta e a senha são obrigatórios.' })).to.be.equal(true);
     });
 
   });
@@ -36,7 +36,7 @@ describe('Ao chamar o controller login', () => {
     const request = {};
 
     before(() => {
-      request.body = { id: 20, password: '54321' };
+      request.body = { accountId: 20, password: '54321' };
 
       response.status = sinon.stub()
         .returns(response);

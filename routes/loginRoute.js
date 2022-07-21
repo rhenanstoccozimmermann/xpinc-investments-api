@@ -17,15 +17,15 @@ const loginRoute = express.Router();
  *      Login:
  *        type: object
  *        required:
- *          - id
+ *          - accountId
  *          - password
  *        properties:
- *          id:
+ *          accountId:
  *            type: number
  *          password:
  *            type: string
  *        example:
- *          id: 1
+ *          accountId: 1
  *          password: 12345
  *      Token:
  *        type: object

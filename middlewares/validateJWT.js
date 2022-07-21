@@ -33,9 +33,9 @@ module.exports = async (req, res, next) => {
 
     const decoded = verify(token, secret);
 
-    const { id, password } = decoded.data;
+    const { accountId, password } = decoded.data;
 
-    const client = await Client.findOne({ where: { accountId: id, password } });
+    const client = await Client.findOne({ where: { accountId, password } });
 
     if (!validateClient(client)) throw Error;
    
