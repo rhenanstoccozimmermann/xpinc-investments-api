@@ -1,7 +1,7 @@
 const { Account } = require('../models');
 
-module.exports = async (id) => {
-  const account = await Account.findByPk(id);
+module.exports = async (accountId) => {
+  const account = await Account.findByPk(accountId);
 
   if (!account) {
     return {
@@ -12,5 +12,7 @@ module.exports = async (id) => {
     };
   }
 
-  return { code: 200, content: account };
+  const { id, balance } = account;
+
+  return { code: 200, content: { accountId: id, balance } };
 };
