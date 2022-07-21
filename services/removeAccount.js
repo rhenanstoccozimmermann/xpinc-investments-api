@@ -32,9 +32,9 @@ const validateAccount = (account) => {
 const executeTransaction = async (accountId) => {
   try {
     return await sequelize.transaction(async (t) => {
-      await Client.destroy({ where: { accountId } }, { transaction: t });
+      await Client.destroy({ where: { accountId } }, { transaction: t }); // corrigir
 
-      await Account.destroy({ where: { id: accountId } }, { transaction: t });
+      await Account.destroy({ where: { id: accountId } }, { transaction: t }); // corrigir
       
       return {};
     });

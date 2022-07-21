@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
   try {
     if (!validateRequest(req, res)) return;
 
-    const { id, password } = req.body;
+    const { id, password } = req.body; // refatorar
 
     const client = await Client.findOne({ where: { accountId: id, password } });
 

@@ -3,3 +3,6 @@
 
 # Dotenv
 .env
+
+# nyc output
+.nyc_output
