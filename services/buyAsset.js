@@ -1,11 +1,29 @@
-const { Asset, AccountAsset } = require('../models');
+const { Asset, Account, AccountAsset } = require('../models');
 
-const validateQuantity = (availableQuantity, requestedQuantity) => {
-  if (Number(availableQuantity) < Number(requestedQuantity)) {
+const validateTransaction = (asset, requestedQuantity, account) => {
+  if (!asset) {
     return {
       error: {
         code: 400,
-        message: `Não há ativos suficientes na corretora para esta compra (ativos disponíveis: ${availableQuantity}).`,
+        message: 'Ativo não encontrado na corretora.',
+      },
+    };
+  }
+
+  if (Number(asset.quantity) < Number(requestedQuantity)) {
+    return {
+      error: {
+        code: 400,
+        message: `Não há ativos suficientes na corretora para esta compra (ativos disponíveis: ${asset.quantity}).`,
+      },
+    };
+  }
+
+  if (Number(account.balance) < (Number(asset.price) * Number(requestedQuantity))) {
+    return {
+      error: {
+        code: 400,
+        message: `Não há saldo suficiente na conta para esta compra (saldo disponível: ${account.balance}).`,
       },
     };
   }
@@ -16,9 +34,11 @@ const validateQuantity = (availableQuantity, requestedQuantity) => {
 module.exports = async (accountId, assetId, quantity) => {
   const asset = await Asset.findByPk(assetId);
 
-  const quantityValidation = validateQuantity(asset.quantity, quantity);
+  const account = await Account.findByPk(accountId);
 
-  if (quantityValidation.error) return quantityValidation;
+  const transactionValidation = validateTransaction(asset, quantity, account);
+
+  if (transactionValidation.error) return transactionValidation;
 
   const accountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
 
