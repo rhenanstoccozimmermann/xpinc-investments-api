@@ -20,24 +20,24 @@ const assetsRoutes = express.Router();
  *      Asset:
  *        type: object
  *        required:
- *          - id
+ *          - assetId
  *          - ticker
- *          - quantity
  *          - price
+ *          - quantity
  *        properties:
- *          id:
+ *          assetId:
  *            type: number
  *          ticker:
  *            type: string
+ *          price:
+ *            type: string
  *          quantity:
  *            type: number
- *          price:
- *            type: number
  *        example:
- *          id: 1
+ *          assetId: 1
  *          ticker: BLAU3
+ *          price: "24.53"
  *          quantity: 1
- *          price: 24.53
  *      Investment:
  *        type: object
  *        required:
@@ -52,7 +52,7 @@ const assetsRoutes = express.Router();
  *          assetId:
  *            type: number
  *          ticker:
- *            type:s tring
+ *            type: string
  *          price:
  *            type: string
  *          quantity:

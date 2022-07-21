@@ -14,12 +14,12 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
       price: {
         type: Sequelize.DECIMAL(65, 2),
+        allowNull: false,
+      },
+      quantity: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
     });

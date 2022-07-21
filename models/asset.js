@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
     ticker: DataTypes.STRING,
-    quantity: DataTypes.INTEGER,
     price: DataTypes.DECIMAL(65, 2),
+    quantity: DataTypes.INTEGER,
   },
   {
     timestamps: false,

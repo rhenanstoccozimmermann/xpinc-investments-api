@@ -1,7 +1,7 @@
 const { Asset } = require('../models');
 
-module.exports = async (id) => {
-  const asset = await Asset.findByPk(id);
+module.exports = async (assetId) => {
+  const asset = await Asset.findByPk(assetId);
 
   if (!asset) {
     return {
@@ -12,5 +12,7 @@ module.exports = async (id) => {
     };
   }
 
-  return { code: 200, content: asset };
+  const { id, ticker, price, quantity } = asset;
+
+  return { code: 200, content: { assetId: id, ticker, price, quantity } };
 };
