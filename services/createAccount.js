@@ -43,5 +43,7 @@ module.exports = async (name, identityCard, password) => {
 
   const newAccount = await executeTransaction(name, identityCard, password);
 
-  return { code: 201, content: newAccount };
+  const { id, balance } = newAccount;
+
+  return { code: 201, content: { accountId: id, balance } };
 };

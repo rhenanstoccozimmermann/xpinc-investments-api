@@ -37,15 +37,15 @@ const accountsRoutes = express.Router();
  *      Account:
  *        type: object
  *        required:
- *          - id
+ *          - accountId
  *          - balance
  *        properties:
- *          id:
+ *          accountId:
  *            type: number
  *          balance:
  *            type: number
  *        example:
- *          id: 1
+ *          accountId: 1
  *          balance: 100.55
  *      Client:
  *        type: object
