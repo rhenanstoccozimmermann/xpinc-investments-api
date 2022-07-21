@@ -1,6 +1,13 @@
+const Sequelize = require('sequelize');
+const config = require('../config/config');
+require('dotenv').config();
 const { Asset, Account, AccountAsset } = require('../models');
 
-const validateTransaction = (asset, requestedQuantity, account) => {
+const env = process.env.NODE_ENV || 'development';
+
+const sequelize = new Sequelize(config[env]);
+
+const validateTransaction = (asset, requestedQuantity, totalPrice, account) => {
   if (!asset) {
     return {
       error: {
@@ -19,7 +26,7 @@ const validateTransaction = (asset, requestedQuantity, account) => {
     };
   }
 
-  if (Number(account.balance) < (Number(asset.price) * Number(requestedQuantity))) {
+  if (Number(account.balance) < totalPrice) {
     return {
       error: {
         code: 400,
@@ -31,12 +38,30 @@ const validateTransaction = (asset, requestedQuantity, account) => {
   return {};
 };
 
+const executeTransaction = async (accountId, assetId, quantity, asset, account, totalPrice) => {
+  try {
+    return await sequelize.transaction(async (t) => {
+      const newAccountAsset = await AccountAsset.create({ accountId, assetId, quantity }, { transaction: t });
+
+      await Asset.update({ quantity: (Number(asset.quantity) - Number(quantity)) }, { where: { id: assetId }, transaction: t });
+
+      await Account.update({ balance: (Number(account.balance) - totalPrice) }, { where: { id: accountId }, transaction: t });
+      
+      return newAccountAsset;
+    });
+  } catch (error) {
+    return { error: { code: 500, message: error.message } };
+  }
+};
+
 module.exports = async (accountId, assetId, quantity) => {
   const asset = await Asset.findByPk(assetId);
 
   const account = await Account.findByPk(accountId);
 
-  const transactionValidation = validateTransaction(asset, quantity, account);
+  const totalPrice = (Number(asset.price) * Number(quantity));
+
+  const transactionValidation = validateTransaction(asset, quantity, totalPrice, account);
 
   if (transactionValidation.error) return transactionValidation;
 
@@ -50,7 +75,7 @@ module.exports = async (accountId, assetId, quantity) => {
     return { code: 200, content: updatedAccountAsset };
   }
 
-  const newAccountAsset = await AccountAsset.create({ accountId, assetId, quantity });
+  const newAccountAsset = await executeTransaction(accountId, assetId, quantity, asset, account, totalPrice);
 
   return { code: 201, content: newAccountAsset };
 };
