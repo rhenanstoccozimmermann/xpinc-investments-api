@@ -1,7 +1,7 @@
 const { Client } = require('../models');
 
-module.exports = async (id, password) => {
-  await Client.update({ password }, { where: { accountId: id } });
+module.exports = async (accountId, password) => {
+  await Client.update({ password }, { where: { accountId } });
 
   return { code: 200, content: { password } };
 };

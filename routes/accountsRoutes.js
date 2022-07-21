@@ -191,7 +191,7 @@ accountsRoutes.delete('/account/:id', validateJWT, removeAccount);
  *  /accounts/account/{id}:
  *    put:
  *      tags: [/accounts endpoints]
- *      description: O endpoint altera uma conta na corretora
+ *      description: O endpoint altera a senha do cliente na corretora
  *      security:
  *        - bearerAuth: []
  *      parameters:
