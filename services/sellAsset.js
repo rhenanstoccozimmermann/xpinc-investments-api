@@ -1,11 +1,20 @@
 const { AccountAsset } = require('../models');
 
-const validateQuantity = (availableQuantity, requestedQuantity) => {
-  if (Number(availableQuantity) < Number(requestedQuantity)) {
+const validateTransaction = (accountAsset, requestedQuantity) => {
+  if (!accountAsset) {
     return {
       error: {
         code: 400,
-        message: `Não há ativos suficientes na carteira para esta venda (ativos disponíveis: ${availableQuantity}).`,
+        message: 'Ativo não encontrado na carteira.',
+      },
+    };
+  }
+
+  if (Number(accountAsset.quantity) < Number(requestedQuantity)) {
+    return {
+      error: {
+        code: 400,
+        message: `Não há ativos suficientes na carteira para esta venda (ativos disponíveis: ${accountAsset.quantity}).`,
       },
     };
   }
@@ -16,9 +25,9 @@ const validateQuantity = (availableQuantity, requestedQuantity) => {
 module.exports = async (accountId, assetId, quantity) => {
   const accountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
 
-  const quantityValidation = validateQuantity(accountAsset.quantity, quantity);
+  const transactionValidation = validateTransaction(accountAsset, quantity);
 
-  if (quantityValidation.error) return quantityValidation;
+  if (transactionValidation.error) return transactionValidation;
 
   if (Number(accountAsset.quantity) === Number(quantity)) {
     await AccountAsset.destroy({ where: { accountId, assetId } });
