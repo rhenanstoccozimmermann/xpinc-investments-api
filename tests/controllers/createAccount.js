@@ -71,8 +71,11 @@ describe('Ao chamar o controller createAccount', () => {
         .returns();
 
       sinon.stub(services, 'createAccount')
-        .resolves(exampleAccount);
-    })
+        .resolves({
+          code: 201,
+          content: exampleAccount,
+        });
+    });
 
     after(() => {
       services.createAccount.restore();
