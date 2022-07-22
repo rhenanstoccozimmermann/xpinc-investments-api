@@ -1,10 +1,10 @@
-const withdrawFromAccount = require('../services/withdrawFromAccount');
+const withdrawFromAccountService = require('../services/withdrawFromAccount');
 
-module.exports = async (req, res) => {
+const withdrawFromAccount = async (req, res) => {
   try {
     const { accountId, amount } = req.body;  
 
-    const result = await withdrawFromAccount(accountId, amount);
+    const result = await withdrawFromAccountService.withdrawFromAccount(accountId, amount);
 
     if (result.error) {
       const { code, message } = result.error;
@@ -22,4 +22,8 @@ module.exports = async (req, res) => {
   } catch (error) {
     return res.status(error.code || 500).json({ message: error.message });
   }
+};
+
+module.exports = {
+  withdrawFromAccount,
 };
