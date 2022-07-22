@@ -1,7 +1,7 @@
 const express = require('express');
 
 const getAssetsByAccountId = require('../controllers/getAssetsByAccountId');
-const getAssetByAssetId = require('../controllers/getAssetByAssetId');
+const getAssetByAssetIdController = require('../controllers/getAssetByAssetId');
 
 const validateJWT = require('../middlewares/validateJWT');
 
@@ -109,6 +109,6 @@ assetsRoutes.get('/account/:id', validateJWT, getAssetsByAccountId);
  *              schema:  
  *                $ref: '#/components/schemas/Asset'
  */
-assetsRoutes.get('/asset/:id', validateJWT, getAssetByAssetId);
+assetsRoutes.get('/asset/:id', validateJWT, getAssetByAssetIdController.getAssetByAssetId);
 
 module.exports = assetsRoutes;
