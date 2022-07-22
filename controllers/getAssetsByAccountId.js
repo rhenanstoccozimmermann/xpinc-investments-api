@@ -1,10 +1,10 @@
-const getAssetsByAccountId = require('../services/getAssetsByAccountId');
+const getAssetsByAccountIdService = require('../services/getAssetsByAccountId');
 
-module.exports = async (req, res) => {
+const getAssetsByAccountId = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const result = await getAssetsByAccountId(id);
+    const result = await getAssetsByAccountIdService.getAssetsByAccountId(id);
 
     if (result.error) {
       const { code, message } = result.error;
@@ -22,4 +22,8 @@ module.exports = async (req, res) => {
   } catch (error) {
     return res.status(error.code || 500).json({ message: error.message });
   }
+};
+
+module.exports = {
+  getAssetsByAccountId,
 };

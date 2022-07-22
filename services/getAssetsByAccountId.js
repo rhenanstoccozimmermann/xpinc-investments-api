@@ -1,6 +1,6 @@
 const { Account, Asset } = require('../models');
 
-module.exports = async (accountId) => {
+const getAssetsByAccountId = async (accountId) => {
   const accountAsset = await Account.findOne({
     where: { id: accountId },
     include: [
@@ -26,4 +26,8 @@ module.exports = async (accountId) => {
   }));
 
   return { code: 200, content: assets };
+};
+
+module.exports = {
+  getAssetsByAccountId,
 };
