@@ -5,7 +5,7 @@ const withdrawFromAccountController = require('../controllers/withdrawFromAccoun
 const getBalanceFromAccount = require('../controllers/getBalanceFromAccount');
 const createAccountController = require('../controllers/createAccount');
 const removeAccount = require('../controllers/removeAccount');
-const updateAccount = require('../controllers/updateAccount');
+const updateAccountController = require('../controllers/updateAccount');
 
 const validateJWT = require('../middlewares/validateJWT');
 
@@ -221,6 +221,6 @@ accountsRoutes.delete('/account/:id', validateJWT, removeAccount);
  *              schema: 
  *                $ref: '#/components/schemas/Message'
  */
-accountsRoutes.put('/account/:id', validateJWT, updateAccount);
+accountsRoutes.put('/account/:id', validateJWT, updateAccountController.updateAccount);
 
 module.exports = accountsRoutes;

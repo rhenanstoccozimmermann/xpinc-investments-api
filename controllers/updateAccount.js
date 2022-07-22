@@ -1,12 +1,12 @@
-const updateAccount = require('../services/updateAccount');
+const updateAccountService = require('../services/updateAccount');
 
-module.exports = async (req, res) => {
+const updateAccount = async (req, res) => {
   try {
     const { id } = req.params;
 
     const { password } = req.body;
 
-    const result = await updateAccount(id, password);
+    const result = await updateAccountService.updateAccount(id, password);
 
     if (result.error) {
       const { code, message } = result.error;
@@ -24,4 +24,8 @@ module.exports = async (req, res) => {
   } catch (error) {
     return res.status(error.code || 500).json({ message: error.message });
   }
+};
+
+module.exports = {
+  updateAccount,
 };

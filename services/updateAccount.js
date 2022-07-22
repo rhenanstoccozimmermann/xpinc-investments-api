@@ -1,7 +1,11 @@
 const { Client } = require('../models');
 
-module.exports = async (accountId, password) => {
+const updateAccount = async (accountId, password) => {
   await Client.update({ password }, { where: { accountId } });
 
-  return { code: 200, content: { message: `A senha foi alterada com sucesso.` } };
+  return { code: 200, content: { message: 'A senha foi alterada com sucesso.' } };
+};
+
+module.exports = {
+  updateAccount,
 };
