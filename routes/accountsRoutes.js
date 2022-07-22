@@ -1,9 +1,9 @@
 const express = require('express');
 
-const depositIntoAccount = require('../controllers/depositIntoAccount');
+const depositIntoAccountController = require('../controllers/depositIntoAccount');
 const withdrawFromAccount = require('../controllers/withdrawFromAccount');
 const getBalanceFromAccount = require('../controllers/getBalanceFromAccount');
-const createAccount = require('../controllers/createAccount');
+const createAccountController = require('../controllers/createAccount');
 const removeAccount = require('../controllers/removeAccount');
 const updateAccount = require('../controllers/updateAccount');
 
@@ -105,7 +105,7 @@ const accountsRoutes = express.Router();
  *              schema:       
  *                $ref: '#/components/schemas/Account'
  */
-accountsRoutes.post('/deposit', validateJWT, depositIntoAccount);
+accountsRoutes.post('/deposit', validateJWT, depositIntoAccountController.depositIntoAccount);
 
 /**
  * @swagger
@@ -171,7 +171,7 @@ accountsRoutes.get('/account/:id', validateJWT, getBalanceFromAccount);
  *              schema:       
  *                $ref: '#/components/schemas/Account'
  */
-accountsRoutes.post('/account', createAccount);
+accountsRoutes.post('/account', createAccountController.createAccount);
 
 /**
  * @swagger

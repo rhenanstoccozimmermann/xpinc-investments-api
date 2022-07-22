@@ -1,7 +1,7 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const controllers = require('../../controllers/login');
+const loginController = require('../../controllers/login');
 const { Client } = require('../../models');
 const auth = require('../../middlewares/generateToken');
 
@@ -29,13 +29,13 @@ describe('Ao chamar o controller login', () => {
     });
 
     it('é chamado o status com o código 400', async () => {
-      await controllers.login(request, response);
+      await loginController.login(request, response);
 
       expect(response.status.calledWith(400)).to.be.equal(true);
     });
 
     it('é chamado o json com a mensagem de erro', async () => {
-      await controllers.login(request, response);
+      await loginController.login(request, response);
 
       expect(response.json.calledWith({ message })).to.be.equal(true);
     });
@@ -64,13 +64,13 @@ describe('Ao chamar o controller login', () => {
     });
 
     it('é chamado o status com o código 400', async () => {
-      await controllers.login(request, response);
+      await loginController.login(request, response);
 
       expect(response.status.calledWith(400)).to.be.equal(true);
     });
 
     it('é chamado o json com a mensagem de erro', async () => {
-      await controllers.login(request, response);
+      await loginController.login(request, response);
 
       expect(response.json.calledWith({ message })).to.be.equal(true);
     });
@@ -102,13 +102,13 @@ describe('Ao chamar o controller login', () => {
     });
 
     it('é chamado o status com o código 200', async () => {
-      await controllers.login(request, response);
+      await loginController.login(request, response);
 
       expect(response.status.calledWith(200)).to.be.equal(true);
     });
 
     it('é chamado o json com o token', async () => {
-      await controllers.login(request, response);
+      await loginController.login(request, response);
 
       expect(response.json.calledWith({ token })).to.be.equal(true);
     });

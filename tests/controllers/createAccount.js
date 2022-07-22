@@ -1,8 +1,8 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const controllers = require('../../controllers/createAccount');
-const services = require('../../services/createAccount');
+const createAccountController = require('../../controllers/createAccount');
+const createAccountService = require('../../services/createAccount');
 
 describe('Ao chamar o controller createAccount', () => {
   describe('quando o identityCard informado já possui uma conta na corretora', async () => {
@@ -23,7 +23,7 @@ describe('Ao chamar o controller createAccount', () => {
       response.json = sinon.stub()
         .returns();
 
-      sinon.stub(services, 'createAccount')
+      sinon.stub(createAccountService, 'createAccount')
         .resolves({
           error: {
             code: 409,
@@ -33,17 +33,17 @@ describe('Ao chamar o controller createAccount', () => {
     });
 
     after(() => {
-      services.createAccount.restore();
+      createAccountService.createAccount.restore();
     });
 
     it('é chamado o status com o código 409', async () => {
-      await controllers.createAccount(request, response);
+      await createAccountController.createAccount(request, response);
 
       expect(response.status.calledWith(409)).to.be.equal(true);
     });
 
     it('é chamado o json com a mensagem de erro', async () => {
-      await controllers.createAccount(request, response);
+      await createAccountController.createAccount(request, response);
 
       expect(response.json.calledWith({ message })).to.be.equal(true);
     });
@@ -70,7 +70,7 @@ describe('Ao chamar o controller createAccount', () => {
       response.json = sinon.stub()
         .returns();
 
-      sinon.stub(services, 'createAccount')
+      sinon.stub(createAccountService, 'createAccount')
         .resolves({
           code: 201,
           content: exampleAccount,
@@ -78,17 +78,17 @@ describe('Ao chamar o controller createAccount', () => {
     });
 
     after(() => {
-      services.createAccount.restore();
+      createAccountService.createAccount.restore();
     });
 
     it('é chamado o status com o código 201', async () => {
-      await controllers.createAccount(request, response);
+      await createAccountController.createAccount(request, response);
 
       expect(response.status.calledWith(201)).to.be.equal(true);
     });
 
     it('é chamado o json com os dados da conta', async () => {
-      await controllers.createAccount(request, response);
+      await createAccountController.createAccount(request, response);
 
       expect(response.json.calledWith(exampleAccount)).to.be.equal(true);
     });

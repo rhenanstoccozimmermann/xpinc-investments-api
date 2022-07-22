@@ -1,6 +1,6 @@
 const express = require('express');
 
-const login = require('../controllers/login');
+const loginController = require('../controllers/login');
 
 const loginRoute = express.Router();
 
@@ -57,6 +57,6 @@ const loginRoute = express.Router();
  *              schema:       
  *                $ref: '#/components/schemas/Token'
  */
-loginRoute.post('/', login);
+loginRoute.post('/', loginController.login);
 
 module.exports = loginRoute;

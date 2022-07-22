@@ -1,8 +1,8 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const controllers = require('../../controllers/depositIntoAccount');
-const services = require('../../services/depositIntoAccount');
+const depositIntoAccountController = require('../../controllers/depositIntoAccount');
+const depositIntoAccountService = require('../../services/depositIntoAccount');
 
 describe('Ao chamar o controller depositIntoAccount', () => {
   describe('quando o valor do depósito é igual a zero', async () => {
@@ -22,7 +22,7 @@ describe('Ao chamar o controller depositIntoAccount', () => {
       response.json = sinon.stub()
         .returns();
 
-      sinon.stub(services, 'depositIntoAccount')
+      sinon.stub(depositIntoAccountService, 'depositIntoAccount')
         .resolves({
           error: {
             code: 400,
@@ -32,17 +32,17 @@ describe('Ao chamar o controller depositIntoAccount', () => {
     });
 
     after(() => {
-      services.depositIntoAccount.restore();
+      depositIntoAccountService.depositIntoAccount.restore();
     });
 
     it('é chamado o status com o código 400', async () => {
-      await controllers.depositIntoAccount(request, response);
+      await depositIntoAccountController.depositIntoAccount(request, response);
 
       expect(response.status.calledWith(400)).to.be.equal(true);
     });
 
     it('é chamado o json com a mensagem de erro', async () => {
-      await controllers.depositIntoAccount(request, response);
+      await depositIntoAccountController.depositIntoAccount(request, response);
 
       expect(response.json.calledWith({ message })).to.be.equal(true);
     });
@@ -68,7 +68,7 @@ describe('Ao chamar o controller depositIntoAccount', () => {
       response.json = sinon.stub()
         .returns();
 
-      sinon.stub(services, 'depositIntoAccount')
+      sinon.stub(depositIntoAccountService, 'depositIntoAccount')
         .resolves({
           code: 200,
           content: exampleAccount,
@@ -76,17 +76,17 @@ describe('Ao chamar o controller depositIntoAccount', () => {
     });
 
     after(() => {
-      services.depositIntoAccount.restore();
+      depositIntoAccountService.depositIntoAccount.restore();
     });
 
     it('é chamado o status com o código 200', async () => {
-      await controllers.depositIntoAccount(request, response);
+      await depositIntoAccountController.depositIntoAccount(request, response);
 
       expect(response.status.calledWith(200)).to.be.equal(true);
     });
 
     it('é chamado o json com os dados da conta', async () => {
-      await controllers.depositIntoAccount(request, response);
+      await depositIntoAccountController.depositIntoAccount(request, response);
 
       expect(response.json.calledWith(exampleAccount)).to.be.equal(true);
     });
