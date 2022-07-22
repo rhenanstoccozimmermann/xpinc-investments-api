@@ -1,6 +1,6 @@
 const { sign } = require('jsonwebtoken');
 
-module.exports = (accountId, password) => {
+const generateToken = (accountId, password) => {
   const data = { accountId, password };
 
   const secret = process.env.JWT_SECRET;
@@ -10,4 +10,8 @@ module.exports = (accountId, password) => {
   const token = sign({ data }, secret, jwtConfig);
 
   return token;
+};
+
+module.exports = {
+  generateToken,
 };

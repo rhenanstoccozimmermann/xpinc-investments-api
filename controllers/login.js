@@ -1,5 +1,5 @@
 const { Client } = require('../models');
-const generateToken = require('../middlewares/generateToken');
+const auth = require('../middlewares/generateToken');
 
 const validateRequest = (req, res) => {
   const { accountId, password } = req.body;
@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
 
     if (!validateClient(client)) throw Error;
 
-    const token = generateToken(accountId, password);
+    const token = auth.generateToken(accountId, password);
 
     return res.status(200).json({ token });
   } catch (error) {
