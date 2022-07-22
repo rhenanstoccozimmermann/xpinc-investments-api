@@ -12,7 +12,7 @@ const validateTransaction = (accountAsset, requestedQuantity) => {
     return {
       error: {
         code: 400,
-        message: 'Ativo não encontrado na carteira.',
+        message: 'O ativo informado não foi encontrado na carteira.',
       },
     };
   }
@@ -59,7 +59,7 @@ const executeUpdateTransaction = async (asset, quantity, assetId, account, total
   }
 };
 
-module.exports = async (accountId, assetId, quantity) => {
+const sellAsset = async (accountId, assetId, quantity) => {
   const accountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
 
   const transactionValidation = validateTransaction(accountAsset, quantity);
@@ -87,4 +87,8 @@ module.exports = async (accountId, assetId, quantity) => {
   if (transactionResult.error) return transactionResult;
 
   return { code: 200, content: updatedAccountAsset };
+};
+
+module.exports = {
+  sellAsset,
 };
