@@ -6,7 +6,7 @@ const { Client } = require('../../models');
 const auth = require('../../middlewares/generateToken');
 
 describe('Ao chamar o controller login', () => {
-  describe('quando o código da conta e a senha não são encontrados', async () => {
+  describe('quando o código da conta e a senha não são informados', async () => {
     const response = {};
     const request = {};
 
