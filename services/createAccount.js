@@ -34,7 +34,7 @@ const executeTransaction = async (name, identityCard, password) => {
   }
 };
 
-module.exports = async (name, identityCard, password) => {
+const createAccount = async (name, identityCard, password) => {
   const clients = await Client.findAll();
 
   const accountValidation = validateAccount(identityCard, clients);
@@ -46,4 +46,8 @@ module.exports = async (name, identityCard, password) => {
   const { id, balance } = newAccount;
 
   return { code: 201, content: { accountId: id, balance } };
+};
+
+module.exports = {
+  createAccount,
 };

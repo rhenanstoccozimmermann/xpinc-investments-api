@@ -1,10 +1,10 @@
-const createAccount = require('../services/createAccount');
+const services = require('../services/createAccount');
 
-module.exports = async (req, res) => {
+const createAccount = async (req, res) => {
   try {
     const { name, identityCard, password } = req.body;
 
-    const result = await createAccount(name, identityCard, password);
+    const result = await services.createAccount(name, identityCard, password);
 
     if (result.error) {
       const { code, message } = result.error;
@@ -22,4 +22,8 @@ module.exports = async (req, res) => {
   } catch (error) {
     return res.status(error.code || 500).json({ message: error.message });
   }
+};
+
+module.exports = {
+  createAccount,
 };
