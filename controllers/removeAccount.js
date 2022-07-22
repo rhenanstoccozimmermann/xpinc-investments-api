@@ -1,10 +1,10 @@
-const removeAccount = require('../services/removeAccount');
+const removeAccountService = require('../services/removeAccount');
 
-module.exports = async (req, res) => {
+const removeAccount = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const result = await removeAccount(id);
+    const result = await removeAccountService.removeAccount(id);
 
     if (result.error) {
       const { code, message } = result.error;
@@ -22,4 +22,8 @@ module.exports = async (req, res) => {
   } catch (error) {
     return res.status(error.code || 500).json({ message: error.message });
   }
+};
+
+module.exports = {
+  removeAccount,
 };
