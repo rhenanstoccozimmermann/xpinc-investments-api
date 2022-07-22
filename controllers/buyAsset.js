@@ -1,10 +1,10 @@
-const buyAsset = require('../services/buyAsset');
+const buyAssetService = require('../services/buyAsset');
 
-module.exports = async (req, res) => {
+const buyAsset = async (req, res) => {
   try {
     const { accountId, assetId, quantity } = req.body;
 
-    const result = await buyAsset(accountId, assetId, quantity);
+    const result = await buyAssetService.buyAsset(accountId, assetId, quantity);
 
     if (result.error) {
       const { code, message } = result.error;
@@ -22,4 +22,8 @@ module.exports = async (req, res) => {
   } catch (error) {
     return res.status(error.code || 500).json({ message: error.message });
   }
+};
+
+module.exports = {
+  buyAsset,
 };

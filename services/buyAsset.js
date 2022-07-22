@@ -12,7 +12,7 @@ const validateTransaction = (asset, requestedQuantity, totalPrice, account) => {
     return {
       error: {
         code: 400,
-        message: 'Ativo não encontrado na corretora.',
+        message: 'O ativo informado não foi encontrado na corretora.',
       },
     };
   }
@@ -54,7 +54,7 @@ const executeTransaction = async (accountId, assetId, quantity, asset, account, 
   }
 };
 
-module.exports = async (accountId, assetId, quantity) => {
+const buyAsset = async (accountId, assetId, quantity) => {
   const asset = await Asset.findByPk(assetId);
 
   const account = await Account.findByPk(accountId);
@@ -78,4 +78,8 @@ module.exports = async (accountId, assetId, quantity) => {
   const newAccountAsset = await executeTransaction(accountId, assetId, quantity, asset, account, totalPrice);
 
   return { code: 201, content: newAccountAsset };
+};
+
+module.exports = {
+  buyAsset,
 };

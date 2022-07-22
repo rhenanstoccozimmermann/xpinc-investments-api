@@ -1,6 +1,6 @@
 const express = require('express');
 
-const buyAsset = require('../controllers/buyAsset');
+const buyAssetController = require('../controllers/buyAsset');
 const sellAsset = require('../controllers/sellAsset');
 
 const validateJWT = require('../middlewares/validateJWT');
@@ -57,7 +57,7 @@ const investmentsRoutes = express.Router();
  *              schema:       
  *                $ref: '#/components/schemas/Transaction'
  */
-investmentsRoutes.post('/buy', validateJWT, buyAsset);
+investmentsRoutes.post('/buy', validateJWT, buyAssetController.buyAsset);
 
 /**
  * @swagger
