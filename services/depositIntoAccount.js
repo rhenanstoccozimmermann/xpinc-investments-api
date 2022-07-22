@@ -13,7 +13,7 @@ const validateDepositAmount = (requestedDeposit) => {
   return {};
 };
 
-module.exports = async (accountId, amount) => {
+const depositIntoAccount = async (accountId, amount) => {
   const account = await Account.findByPk(accountId);
 
   const depositAmountValidation = validateDepositAmount(amount);
@@ -27,4 +27,8 @@ module.exports = async (accountId, amount) => {
   const { id, balance } = updatedAccount;
 
   return { code: 200, content: { accountId: id, balance } };
+};
+
+module.exports = {
+  depositIntoAccount,
 };
