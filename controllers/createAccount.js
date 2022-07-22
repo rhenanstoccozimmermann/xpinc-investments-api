@@ -1,10 +1,10 @@
-const services = require('../services/createAccount');
+const createAccountService = require('../services/createAccount');
 
 const createAccount = async (req, res) => {
   try {
     const { name, identityCard, password } = req.body;
 
-    const result = await services.createAccount(name, identityCard, password);
+    const result = await createAccountService.createAccount(name, identityCard, password);
 
     if (result.error) {
       const { code, message } = result.error;

@@ -1,10 +1,10 @@
-const services = require('../services/depositIntoAccount');
+const depositIntoAccountService = require('../services/depositIntoAccount');
 
 const depositIntoAccount = async (req, res) => {
   try {
     const { accountId, amount } = req.body;
 
-    const result = await services.depositIntoAccount(accountId, amount);
+    const result = await depositIntoAccountService.depositIntoAccount(accountId, amount);
 
     if (result.error) {
       const { code, message } = result.error;
