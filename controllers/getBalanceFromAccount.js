@@ -1,10 +1,10 @@
-const getBalanceFromAccount = require('../services/getBalanceFromAccount');
+const getBalanceFromAccountService = require('../services/getBalanceFromAccount');
 
-module.exports = async (req, res) => {
+const getBalanceFromAccount = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const result = await getBalanceFromAccount(id);
+    const result = await getBalanceFromAccountService.getBalanceFromAccount(id);
 
     if (result.error) {
       const { code, message } = result.error;
@@ -22,4 +22,8 @@ module.exports = async (req, res) => {
   } catch (error) {
     return res.status(error.code || 500).json({ message: error.message });
   }
+};
+
+module.exports = {
+  getBalanceFromAccount,
 };
