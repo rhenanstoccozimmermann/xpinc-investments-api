@@ -79,7 +79,7 @@ describe('Ao chamar o controller getBalanceFromAccount', () => {
       expect(response.status.calledWith(200)).to.be.equal(true);
     });
 
-    it('é chamado o json com a mensagem de sucesso', async () => {
+    it('é chamado o json com os dados da conta', async () => {
       await getBalanceFromAccountController.getBalanceFromAccount(request, response);
 
       expect(response.json.calledWith(exampleAccount)).to.be.equal(true);
