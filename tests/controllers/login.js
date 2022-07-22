@@ -1,7 +1,7 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 
-const login = require('../../controllers/login');
+const controllers = require('../../controllers/login');
 const { Client } = require('../../models');
 const auth = require('../../middlewares/generateToken');
 
@@ -9,6 +9,8 @@ describe('Ao chamar o controller login', () => {
   describe('quando o código da conta e a senha não são encontrados', async () => {
     const response = {};
     const request = {};
+
+    const message = 'O código da conta e a senha são obrigatórios.';
 
     before(() => {
       request.body = {};
@@ -19,7 +21,7 @@ describe('Ao chamar o controller login', () => {
         .returns(); 
         
       sinon.stub(Client, 'findOne')
-        .resolves(null);
+        .resolves(false);
     });
 
     after(() => {
@@ -27,22 +29,23 @@ describe('Ao chamar o controller login', () => {
     });
 
     it('é chamado o status com o código 400', async () => {
-      await login(request, response);
+      await controllers.login(request, response);
 
       expect(response.status.calledWith(400)).to.be.equal(true);
     });
 
-    it('é chamado o json com a mensagem "O código da conta e a senha são obrigatórios."', async () => {
-      await login(request, response);
+    it('é chamado o json com a mensagem de erro', async () => {
+      await controllers.login(request, response);
 
-      expect(response.json.calledWith({ message: 'O código da conta e a senha são obrigatórios.' })).to.be.equal(true);
+      expect(response.json.calledWith({ message })).to.be.equal(true);
     });
-
   });
 
   describe('quando o cliente não é encontrado', async () => {
     const response = {};
     const request = {};
+
+    const message = 'Campos inválidos.';
 
     before(() => {
       request.body = { accountId: 20, password: '54321' };
@@ -61,22 +64,23 @@ describe('Ao chamar o controller login', () => {
     });
 
     it('é chamado o status com o código 400', async () => {
-      await login(request, response);
+      await controllers.login(request, response);
 
       expect(response.status.calledWith(400)).to.be.equal(true);
     });
 
-    it('é chamado o json com a mensagem "Campos inválidos."', async () => {
-      await login(request, response);
+    it('é chamado o json com a mensagem de erro', async () => {
+      await controllers.login(request, response);
 
-      expect(response.json.calledWith({ message: 'Campos inválidos.' })).to.be.equal(true);
+      expect(response.json.calledWith({ message })).to.be.equal(true);
     });
-
   });
 
   describe('quando o cliente é encontrado', async () => {
     const response = {};
     const request = {};
+
+    const token = 'XXXXX';
 
     before(() => {
       request.body = { accountId: 1, password: '12345' };
@@ -89,7 +93,7 @@ describe('Ao chamar o controller login', () => {
       sinon.stub(Client, 'findOne')
         .resolves(true);
       sinon.stub(auth, 'generateToken')
-        .returns('XXXXX');
+        .returns(token);
     });
 
     after(() => {
@@ -98,16 +102,15 @@ describe('Ao chamar o controller login', () => {
     });
 
     it('é chamado o status com o código 200', async () => {
-      await login(request, response);
+      await controllers.login(request, response);
 
       expect(response.status.calledWith(200)).to.be.equal(true);
     });
 
-    it('é chamado o json com o token "XXXXX"', async () => {
-      await login(request, response);
+    it('é chamado o json com o token', async () => {
+      await controllers.login(request, response);
 
-      expect(response.json.calledWith({ token: 'XXXXX' })).to.be.equal(true);
+      expect(response.json.calledWith({ token })).to.be.equal(true);
     });
-
   });
 });

@@ -21,7 +21,7 @@ const validateClient = (client) => {
   return true;
 };
 
-module.exports = async (req, res) => {
+const login = async (req, res) => {
   try {
     if (!validateRequest(req, res)) return;
 
@@ -37,4 +37,8 @@ module.exports = async (req, res) => {
   } catch (error) {
     return res.status(400).json({ message: 'Campos inválidos.' });
   }
+};
+
+module.exports = {
+  login,
 };
