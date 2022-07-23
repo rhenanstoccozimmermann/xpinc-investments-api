@@ -14,11 +14,11 @@ const validateDepositAmount = (requestedDeposit) => {
 };
 
 const depositIntoAccount = async (accountId, amount) => {
-  const account = await Account.findByPk(accountId);
-
   const depositAmountValidation = validateDepositAmount(amount);
 
   if (depositAmountValidation.error) return depositAmountValidation;
+
+  const account = await Account.findByPk(accountId);
 
   await Account.update({ balance: (Number(account.balance) + Number(amount)) }, { where: { id: accountId } });
 
