@@ -50,12 +50,21 @@ describe('Ao chamar o service updateAccount', () => {
     const code = 200;
     const message = 'A senha foi alterada com sucesso.';
 
-    before(() => {      
+    before(() => {  
+      sinon.stub(Client, 'findOne')
+        .resolves({
+          id: 1,
+          name: 'Mr. Buffet',
+          identityCard: '11111111111',
+          password: '12345',
+          accountId: 1,
+        });
       sinon.stub(Client, 'update')
         .resolves();
     });
 
     after(() => {
+      Client.findOne.restore();
       Client.update.restore();
     });
 
