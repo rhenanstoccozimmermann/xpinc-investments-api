@@ -45,9 +45,11 @@ const executeDestroyTransaction = async (asset, quantity, assetId, account, tota
   }
 };
 
-const executeUpdateTransaction = async (asset, quantity, assetId, account, totalPrice, accountId) => {
+const executeUpdateTransaction = async (asset, quantity, assetId, account, totalPrice, accountId, accountAsset) => {
   try {
     return await sequelize.transaction(async (t) => {
+      await AccountAsset.update({ quantity: (Number(accountAsset.quantity) - Number(quantity)) }, { where: { accountId, assetId }, transaction: t });
+
       await Asset.update({ quantity: (Number(asset.quantity) + Number(quantity)) }, { where: { id: assetId }, transaction: t });
 
       await Account.update({ balance: (Number(account.balance) + totalPrice) }, { where: { id: accountId }, transaction: t });
@@ -78,13 +80,11 @@ const sellAsset = async (accountId, assetId, quantity) => {
     return transactionResult;
   }
 
-  await AccountAsset.update({ quantity: (Number(accountAsset.quantity) - Number(quantity)) }, { where: { accountId, assetId } });
-
-  const updatedAccountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
-
-  const transactionResult = await executeUpdateTransaction(asset, quantity, assetId, account, totalPrice, accountId);
+  const transactionResult = await executeUpdateTransaction(asset, quantity, assetId, account, totalPrice, accountId, accountAsset);
 
   if (transactionResult.error) return transactionResult;
+
+  const updatedAccountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
 
   return { code: 200, content: updatedAccountAsset };
 };
