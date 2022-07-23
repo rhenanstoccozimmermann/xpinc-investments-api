@@ -11,11 +11,9 @@ describe('Ao chamar o service getBalanceFromAccount', () => {
     const code = 404;
     const message = 'A conta informada não foi encontrada.';
 
-    before(() => {  
-      const exampleAccount = null;
-
+    before(() => {
       sinon.stub(Account, 'findByPk')
-        .resolves(exampleAccount);
+        .resolves(false);
     });
 
     after(() => {
