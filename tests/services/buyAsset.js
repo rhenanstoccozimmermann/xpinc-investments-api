@@ -150,7 +150,7 @@ describe('Ao chamar o service buyAsset', () => {
     const quantity = 1;
 
     const code = 201;
-    const exampleNewAccountAsset = {
+    const exampleAccountAsset = {
       accountId: 1,
       assetId: 1,
       quantity: 1,
@@ -170,9 +170,9 @@ describe('Ao chamar o service buyAsset', () => {
           balance: 100,
         });
       sinon.stub(AccountAsset, 'findOne')
-        .resolves(null);
+        .resolves(false);
       sinon.stub(AccountAsset, 'create')
-        .resolves(exampleNewAccountAsset);
+        .resolves(exampleAccountAsset);
       sinon.stub(Asset, 'update')
         .resolves();
       sinon.stub(Account, 'update')
@@ -205,7 +205,7 @@ describe('Ao chamar o service buyAsset', () => {
       const response = await buyAssetService.buyAsset(accountId, assetId, quantity);
   
       expect(response.code).to.be.equal(code);
-      expect(response.content).to.deep.equal(exampleNewAccountAsset);
+      expect(response.content).to.deep.equal(exampleAccountAsset);
     });
   });
 });
