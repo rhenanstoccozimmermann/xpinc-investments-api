@@ -77,6 +77,8 @@ const buyAsset = async (accountId, assetId, quantity) => {
 
   const newAccountAsset = await executeTransaction(accountId, assetId, quantity, asset, account, totalPrice);
 
+  if (newAccountAsset.error) return newAccountAsset;
+
   return { code: 201, content: newAccountAsset };
 };
 
