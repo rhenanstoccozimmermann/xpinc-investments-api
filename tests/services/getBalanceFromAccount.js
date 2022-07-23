@@ -49,13 +49,16 @@ describe('Ao chamar o service getBalanceFromAccount', () => {
     
     const code = 200;
     const exampleAccount = {
-      id: 1,
+      accountId: 1,
       balance: 0,
     };
 
     before(() => {      
       sinon.stub(Account, 'findByPk')
-        .resolves(exampleAccount);
+        .resolves({
+          id: 1,
+          balance: 0,
+        });
     });
 
     after(() => {
@@ -68,19 +71,18 @@ describe('Ao chamar o service getBalanceFromAccount', () => {
       expect(response).to.be.a('object');
     });
 
-    it('tal objeto possui propriedades ccom os dados da conta', async () => {
+    it('tal objeto possui as propriedades de sucesso', async () => {
       const response = await getBalanceFromAccountService.getBalanceFromAccount(accountId);
 
       expect(response).to.have.a.property('code');
       expect(response).to.have.a.property('content');
-      expect(response.content).to.have.a.property('message');
     });
 
     it('tais propriedades possuem os valores corretos', async () => {
       const response = await getBalanceFromAccountService.getBalanceFromAccount(accountId);
 
       expect(response.code).to.be.equal(code);
-      expect(response.content).to.be.equal(exampleAccount);
+      expect(response.content).to.deep.equal(exampleAccount);
     });
   });
 });
