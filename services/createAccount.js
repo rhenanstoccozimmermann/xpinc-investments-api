@@ -43,6 +43,8 @@ const createAccount = async (name, identityCard, password) => {
 
   const newAccount = await executeTransaction(name, identityCard, password);
 
+  if (newAccount.error) return newAccount;
+
   const { id, balance } = newAccount;
 
   return { code: 201, content: { accountId: id, balance } };
