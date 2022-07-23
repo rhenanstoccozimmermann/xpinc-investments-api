@@ -7,21 +7,14 @@ const { Client } = require('../../models');
 describe('Ao chamar o service updateAccount', () => {
   describe('quando a senha é alterada com sucesso', async () => {
     const accountId = 1;
-    const password = '12345';
+    const password = '54321';
 
+    const code = 200;
     const message = 'A senha foi alterada com sucesso.';
 
-    before(() => {
-      const exampleClient = {
-        id: 1,
-        name: 'Mr. Buffet',
-        identityCard: '11111111111',
-        password: '12345',
-        accountId: 1,
-      };
-      
+    before(() => {      
       sinon.stub(Client, 'update')
-        .resolves(exampleClient);
+        .resolves();
     });
 
     after(() => {
@@ -34,16 +27,17 @@ describe('Ao chamar o service updateAccount', () => {
       expect(response).to.be.a('object');
     });
 
-    it('tal objeto possui propriedades confirmando a alteração de senha', async () => {
+    it('tal objeto possui as propriedades de sucesso', async () => {
       const response = await updateAccountService.updateAccount(accountId, password);
 
+      expect(response).to.have.a.property('code');
       expect(response).to.have.a.property('content');
-      expect(response.content).to.have.a.property('message');
     });
 
     it('tais propriedades possuem os valores corretos', async () => {
       const response = await updateAccountService.updateAccount(accountId, password);
   
+      expect(response.code).to.be.equal(code);
       expect(response.content.message).to.be.equal(message);
     });
   });
