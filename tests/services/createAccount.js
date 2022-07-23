@@ -13,17 +13,15 @@ describe('Ao chamar o service createAccount', () => {
     const code = 409;
     const message = 'A cédula de identidade informada (11111111111) já possui uma conta na corretora.';
 
-    before(() => {  
-      const exampleClients = [{
-        id: 1,
-        name: 'Mr. Buffet',
-        identityCard: '11111111111',
-        password: '12345',
-        accountId: 1,
-      }];
-
+    before(() => {
       sinon.stub(Client, 'findAll')
-        .resolves(exampleClients);
+        .resolves([{
+          id: 1,
+          name: 'Mr. Buffet',
+          identityCard: '11111111111',
+          password: '12345',
+          accountId: 1,
+        }]);
     });
 
     after(() => {
@@ -58,7 +56,7 @@ describe('Ao chamar o service createAccount', () => {
     const password = '54321';
 
     const code = 201;
-    const exampleNewAccount = {
+    const exampleAccount = {
       accountId: 2,
       balance: 0,
     };
@@ -110,7 +108,7 @@ describe('Ao chamar o service createAccount', () => {
       const response = await createAccountService.createAccount(name, identityCard, password);
   
       expect(response.code).to.be.equal(code);
-      expect(response.content).to.deep.equal(exampleNewAccount);
+      expect(response.content).to.deep.equal(exampleAccount);
     });
   });
 });
