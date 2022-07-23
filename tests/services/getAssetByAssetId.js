@@ -11,11 +11,9 @@ describe('Ao chamar o service getAssetByAssetId', () => {
     const code = 404;
     const message = 'O ativo informado não foi encontrado na corretora.';
 
-    before(() => {  
-      const exampleAsset = null;
-
+    before(() => {
       sinon.stub(Asset, 'findByPk')
-        .resolves(exampleAsset);
+        .resolves(false);
     });
 
     after(() => {
