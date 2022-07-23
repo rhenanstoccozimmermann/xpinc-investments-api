@@ -11,11 +11,9 @@ describe('Ao chamar o service removeAccount', () => {
     const code = 404;
     const message = 'A conta informada não foi encontrada.';
 
-    before(() => {  
-      const exampleAccount = null;
-
+    before(() => {
       sinon.stub(Account, 'findByPk')
-        .resolves(exampleAccount);
+        .resolves(null);
     });
 
     after(() => {
@@ -50,14 +48,12 @@ describe('Ao chamar o service removeAccount', () => {
     const code = 400;
     const message = 'O saldo precisa estar zerado para a conta ser removida (saldo atual: 100.55).';
 
-    before(() => {  
-      const exampleAccount = {
-        id: 1,
-        balance: 100.55,
-      };
-
+    before(() => {
       sinon.stub(Account, 'findByPk')
-        .resolves(exampleAccount);
+        .resolves({
+          id: 1,
+          balance: 100.55,
+        });
     });
 
     after(() => {
@@ -92,18 +88,16 @@ describe('Ao chamar o service removeAccount', () => {
     const code = 200;
     const message = 'A conta 1 foi removida com sucesso.';
 
-    before(() => {
-      const exampleAccount = {
-        id: 1,
-        balance: 0,
-      };
-      
+    before(() => {      
       sinon.stub(Account, 'findByPk')
-        .resolves(exampleAccount);
+        .resolves({
+          id: 1,
+          balance: 0,
+        });
       sinon.stub(Client, 'destroy')
-        .resolves(1);
+        .resolves();
       sinon.stub(Account, 'destroy')
-        .resolves(1);
+        .resolves();
     });
 
     after(() => {
@@ -118,12 +112,11 @@ describe('Ao chamar o service removeAccount', () => {
       expect(response).to.be.a('object');
     });
 
-    it('tal objeto possui propriedades confirmando a remoção da conta', async () => {
+    it('tal objeto possui as propriedades de sucesso', async () => {
       const response = await removeAccountService.removeAccount(accountId);
 
       expect(response).to.have.a.property('code');
       expect(response).to.have.a.property('content');
-      expect(response.content).to.have.a.property('message');
     });
 
     it('tais propriedades possuem os valores corretos', async () => {
