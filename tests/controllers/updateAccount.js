@@ -48,6 +48,36 @@ describe('Ao chamar o controller updateAccount', () => {
     });
   });
 
+  describe('quando ocorre algum erro desconhecido', async () => {
+    const response = {};
+    const request = {};
+
+    before(() => {
+      request.params = { id: 1 };
+      request.body = { 
+        password: '54321',
+      };
+
+      response.status = sinon.stub()
+        .returns(response);
+      response.json = sinon.stub()
+        .returns();
+
+      sinon.stub(updateAccountService, 'updateAccount')
+        .resolves(false);
+    });
+
+    after(() => {
+      updateAccountService.updateAccount.restore();
+    });
+
+    it('é chamado o status com o código 500', async () => {
+      await updateAccountController.updateAccount(request, response);
+
+      expect(response.status.calledWith(500)).to.be.equal(true);
+    }); 
+  });
+
   describe('quando a senha é alterada com sucesso', async () => {
     const response = {};
     const request = {};  
