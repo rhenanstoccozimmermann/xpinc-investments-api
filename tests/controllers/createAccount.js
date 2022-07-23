@@ -49,6 +49,37 @@ describe('Ao chamar o controller createAccount', () => {
     });
   });
 
+  describe('quando ocorre algum erro desconhecido', async () => {
+    const response = {};
+    const request = {};
+
+    before(() => {
+      request.body = {
+        name: 'Mr. Soros',
+        identityCard: '11111111112',
+        password: '23456',
+      };
+
+      response.status = sinon.stub()
+        .returns(response);
+      response.json = sinon.stub()
+        .returns();
+
+      sinon.stub(createAccountService, 'createAccount')
+        .resolves(false);
+    });
+
+    after(() => {
+      createAccountService.createAccount.restore();
+    });
+
+    it('é chamado o status com o código 500', async () => {
+      await createAccountController.createAccount(request, response);
+
+      expect(response.status.calledWith(500)).to.be.equal(true);
+    }); 
+  });
+
   describe('quando a conta é criada com sucesso', async () => {
     const response = {};
     const request = {};  
