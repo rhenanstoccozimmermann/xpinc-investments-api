@@ -26,7 +26,7 @@ describe('Ao chamar o controller sellAsset', () => {
       sinon.stub(sellAssetService, 'sellAsset')
         .resolves({
           error: {
-            code: 400,
+            code: 404,
             message,
           },
         });
@@ -36,10 +36,10 @@ describe('Ao chamar o controller sellAsset', () => {
       sellAssetService.sellAsset.restore();
     });
 
-    it('é chamado o status com o código 400', async () => {
+    it('é chamado o status com o código 404', async () => {
       await sellAssetController.sellAsset(request, response);
 
-      expect(response.status.calledWith(400)).to.be.equal(true);
+      expect(response.status.calledWith(404)).to.be.equal(true);
     });
 
     it('é chamado o json com a mensagem de erro', async () => {

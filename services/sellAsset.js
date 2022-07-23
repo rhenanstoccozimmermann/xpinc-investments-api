@@ -11,7 +11,7 @@ const validateTransaction = (accountAsset, requestedQuantity) => {
   if (!accountAsset) {
     return {
       error: {
-        code: 400,
+        code: 404,
         message: 'O ativo informado não foi encontrado na carteira.',
       },
     };
