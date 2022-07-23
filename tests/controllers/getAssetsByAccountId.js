@@ -45,6 +45,33 @@ describe('Ao chamar o controller getAssetsByAccountId', () => {
     });
   });
 
+  describe('quando ocorre algum erro desconhecido', async () => {
+    const response = {};
+    const request = {};
+
+    before(() => {
+      request.params = { id: 1 };
+
+      response.status = sinon.stub()
+        .returns(response);
+      response.json = sinon.stub()
+        .returns();
+
+      sinon.stub(getAssetsByAccountIdService, 'getAssetsByAccountId')
+        .resolves(false);
+    });
+
+    after(() => {
+      getAssetsByAccountIdService.getAssetsByAccountId.restore();
+    });
+
+    it('é chamado o status com o código 500', async () => {
+      await getAssetsByAccountIdController.getAssetsByAccountId(request, response);
+
+      expect(response.status.calledWith(500)).to.be.equal(true);
+    }); 
+  });
+
   describe('quando os ativos são retornados com sucesso', async () => {
     const response = {};
     const request = {};  
