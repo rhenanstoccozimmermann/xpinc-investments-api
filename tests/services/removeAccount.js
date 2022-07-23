@@ -13,7 +13,7 @@ describe('Ao chamar o service removeAccount', () => {
 
     before(() => {
       sinon.stub(Account, 'findByPk')
-        .resolves(null);
+        .resolves(false);
     });
 
     after(() => {
