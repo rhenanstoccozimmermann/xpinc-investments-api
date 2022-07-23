@@ -10,7 +10,7 @@ describe('Ao chamar o service buyAsset', () => {
     const assetId = 1;
     const quantity = 1;
     
-    const code = 400;
+    const code = 404;
     const message = 'O ativo informado não foi encontrado na corretora.';
 
     before(() => {

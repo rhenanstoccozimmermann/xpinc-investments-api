@@ -11,7 +11,7 @@ const validateTransaction = (asset, requestedQuantity, totalPrice, account) => {
   if (!asset) {
     return {
       error: {
-        code: 400,
+        code: 404,
         message: 'O ativo informado não foi encontrado na corretora.',
       },
     };
