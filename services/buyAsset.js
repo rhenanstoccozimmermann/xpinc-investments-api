@@ -38,7 +38,7 @@ const validateTransaction = (asset, requestedQuantity, totalPrice, account) => {
   return {};
 };
 
-const executeTransaction = async (accountId, assetId, quantity, asset, account, totalPrice) => {
+const executeCreateTransaction = async (accountId, assetId, quantity, asset, account, totalPrice) => {
   try {
     return await sequelize.transaction(async (t) => {
       const newAccountAsset = await AccountAsset.create({ accountId, assetId, quantity }, { transaction: t });
@@ -47,7 +47,23 @@ const executeTransaction = async (accountId, assetId, quantity, asset, account, 
 
       await Account.update({ balance: (Number(account.balance) - totalPrice) }, { where: { id: accountId }, transaction: t });
       
-      return newAccountAsset;
+      return { code: 201, content: newAccountAsset };
+    });
+  } catch (error) {
+    return { error: { code: 500, message: error.message } };
+  }
+};
+
+const executeUpdateTransaction = async (accountId, assetId, quantity, asset, account, totalPrice, accountAsset) => {
+  try {
+    return await sequelize.transaction(async (t) => {
+      await AccountAsset.update({ quantity: (Number(accountAsset.quantity) + Number(quantity)) }, { where: { accountId, assetId }, transaction: t });
+
+      await Asset.update({ quantity: (Number(asset.quantity) - Number(quantity)) }, { where: { id: assetId }, transaction: t });
+
+      await Account.update({ balance: (Number(account.balance) - totalPrice) }, { where: { id: accountId }, transaction: t });
+
+      return {};
     });
   } catch (error) {
     return { error: { code: 500, message: error.message } };
@@ -67,19 +83,19 @@ const buyAsset = async (accountId, assetId, quantity) => {
 
   const accountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
 
-  if (accountAsset) {
-    await AccountAsset.update({ quantity: (Number(accountAsset.quantity) + Number(quantity)) },{ where: { accountId, assetId } });
+  if (!accountAsset) {
+    const newAccountAsset = await executeCreateTransaction(accountId, assetId, quantity, asset, account, totalPrice);
 
-    const updatedAccountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
+    return newAccountAsset;
+  } 
 
-    return { code: 200, content: updatedAccountAsset };
-  }
+  const transactionResult = await executeUpdateTransaction(accountId, assetId, quantity, asset, account, totalPrice, accountAsset);
 
-  const newAccountAsset = await executeTransaction(accountId, assetId, quantity, asset, account, totalPrice);
+  if (transactionResult.error) return transactionResult;
 
-  if (newAccountAsset.error) return newAccountAsset;
-
-  return { code: 201, content: newAccountAsset };
+  const updatedAccountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
+      
+  return { code: 200, content: updatedAccountAsset };
 };
 
 module.exports = {

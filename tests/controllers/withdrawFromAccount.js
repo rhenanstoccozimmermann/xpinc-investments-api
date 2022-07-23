@@ -48,6 +48,36 @@ describe('Ao chamar o controller withdrawFromAccount', () => {
     });
   });
 
+  describe('quando ocorre algum erro desconhecido', async () => {
+    const response = {};
+    const request = {};
+
+    before(() => {
+      request.body = {
+        accountId: 1,
+        amount: 100,
+      };
+
+      response.status = sinon.stub()
+        .returns(response);
+      response.json = sinon.stub()
+        .returns();
+
+      sinon.stub(withdrawFromAccountService, 'withdrawFromAccount')
+        .resolves(false);
+    });
+
+    after(() => {
+      withdrawFromAccountService.withdrawFromAccount.restore();
+    });
+
+    it('é chamado o status com o código 500', async () => {
+      await withdrawFromAccountController.withdrawFromAccount(request, response);
+
+      expect(response.status.calledWith(500)).to.be.equal(true);
+    }); 
+  });
+
   describe('quando o saque é efetuado com sucesso', async () => {
     const response = {};
     const request = {};  

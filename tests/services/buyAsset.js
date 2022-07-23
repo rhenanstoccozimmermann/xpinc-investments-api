@@ -144,7 +144,7 @@ describe('Ao chamar o service buyAsset', () => {
     });
   });
 
-  describe('quando a compra é efetuada com sucesso', async () => {
+  describe('quando a compra de novos ativos é efetuada com sucesso', async () => {
     const accountId = 1;
     const assetId = 1;
     const quantity = 1;
@@ -184,6 +184,76 @@ describe('Ao chamar o service buyAsset', () => {
       Account.findByPk.restore();
       AccountAsset.findOne.restore();
       AccountAsset.create.restore();
+      Asset.update.restore();
+      Account.update.restore();
+    });
+
+    it('retorna um objeto', async () => {
+      const response = await buyAssetService.buyAsset(accountId, assetId, quantity);
+
+      expect(response).to.be.a('object');
+    });
+
+    it('tal objeto possui as propriedades de sucesso', async () => {
+      const response = await buyAssetService.buyAsset(accountId, assetId, quantity);
+
+      expect(response).to.have.a.property('code');
+      expect(response).to.have.a.property('content');
+    });
+
+    it('tais propriedades possuem os valores corretos', async () => {
+      const response = await buyAssetService.buyAsset(accountId, assetId, quantity);
+  
+      expect(response.code).to.be.equal(code);
+      expect(response.content).to.deep.equal(exampleAccountAsset);
+    });
+  });
+
+  describe('quando a compra de ativos adicionais é efetuada com sucesso', async () => {
+    const accountId = 1;
+    const assetId = 1;
+    const quantity = 1;
+
+    const code = 200;
+    const exampleAccountAsset = {
+      accountId: 1,
+      assetId: 1,
+      quantity: 2,
+    };
+
+    before(() => {      
+      sinon.stub(Asset, 'findByPk')
+        .resolves({
+          id: 1,
+          ticker: 'BLAU3',
+          price: 24.53,
+          quantity: 100,
+        });
+      sinon.stub(Account, 'findByPk')
+        .resolves({
+          id: 1,
+          balance: 100,
+        });
+      sinon.stub(AccountAsset, 'findOne')
+        .resolves({
+          accountId: 1,
+          assetId: 1,
+          quantity: 2,
+        });
+      sinon.stub(AccountAsset, 'update')
+        .resolves();
+
+      sinon.stub(Asset, 'update')
+        .resolves();
+      sinon.stub(Account, 'update')
+        .resolves();
+    });
+
+    after(() => {
+      Asset.findByPk.restore();
+      Account.findByPk.restore();
+      AccountAsset.findOne.restore();
+      AccountAsset.update.restore();
       Asset.update.restore();
       Account.update.restore();
     });
