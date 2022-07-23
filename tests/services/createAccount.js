@@ -57,33 +57,34 @@ describe('Ao chamar o service createAccount', () => {
     const identityCard = '21111111111';
     const password = '54321';
 
+    const code = 201;
     const exampleNewAccount = {
-      id: 2,
+      accountId: 2,
       balance: 0,
     };
 
-    before(() => {  
-      const exampleClients = [{
-        id: 1,
-        name: 'Mr. Buffet',
-        identityCard: '11111111111',
-        password: '12345',
-        accountId: 1,
-      }];
-      const exampleNewClient = {
-        id: 2,
-        name: 'Mr. Soros',
-        identityCard: '21111111111',
-        password: '54321',
-        accountId: 2,
-      };
-      
+    before(() => {      
       sinon.stub(Client, 'findAll')
-        .resolves(exampleClients);
+        .resolves([{
+          id: 1,
+          name: 'Mr. Buffet',
+          identityCard: '11111111111',
+          password: '12345',
+          accountId: 1,
+        }]);
       sinon.stub(Account, 'create')
-        .resolves(exampleNewAccount);
+        .resolves({
+          id: 2,
+          balance: 0,
+        });
       sinon.stub(Client, 'create')
-        .resolves(exampleNewClient);
+        .resolves({
+          id: 2,
+          name: 'Mr. Soros',
+          identityCard: '21111111111',
+          password: '54321',
+          accountId: 2,
+        });
     });
 
     after(() => {
@@ -98,19 +99,18 @@ describe('Ao chamar o service createAccount', () => {
       expect(response).to.be.a('object');
     });
 
-    it('tal objeto possui propriedades com os dados da conta', async () => {
+    it('tal objeto possui as propriedades de sucesso', async () => {
       const response = await createAccountService.createAccount(name, identityCard, password);
 
+      expect(response).to.have.a.property('code');
       expect(response).to.have.a.property('content');
-      expect(response.content).to.have.a.property('accountId');
-      expect(response.content).to.have.a.property('balance');
     });
 
     it('tais propriedades possuem os valores corretos', async () => {
       const response = await createAccountService.createAccount(name, identityCard, password);
   
-      expect(response.content.accountId).to.be.equal(exampleNewAccount.id);
-      expect(response.content.balance).to.be.equal(exampleNewAccount.balance);
+      expect(response.code).to.be.equal(code);
+      expect(response.content).to.deep.equal(exampleNewAccount);
     });
   });
 });
