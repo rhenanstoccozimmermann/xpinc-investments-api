@@ -45,6 +45,33 @@ describe('Ao chamar o controller getBalanceFromAccount', () => {
     });
   });
 
+  describe('quando ocorre algum erro desconhecido', async () => {
+    const response = {};
+    const request = {};
+
+    before(() => {
+      request.params = { id: 1 };
+
+      response.status = sinon.stub()
+        .returns(response);
+      response.json = sinon.stub()
+        .returns();
+
+      sinon.stub(getBalanceFromAccountService, 'getBalanceFromAccount')
+        .resolves(false);
+    });
+
+    after(() => {
+      getBalanceFromAccountService.getBalanceFromAccount.restore();
+    });
+
+    it('é chamado o status com o código 500', async () => {
+      await getBalanceFromAccountController.getBalanceFromAccount(request, response);
+
+      expect(response.status.calledWith(500)).to.be.equal(true);
+    }); 
+  });
+
   describe('quando a conta é retornada com sucesso', async () => {
     const response = {};
     const request = {};  
