@@ -1,3 +1,7 @@
+require('dotenv').config();
+
+const port = process.env.PORT;
+
 module.exports = {
   definition: {
     openapi: '3.0.1',
@@ -7,7 +11,7 @@ module.exports = {
       version: '1.0',
     },
     servers: [{
-      url: 'http://localhost:3000',
+      url:  `http://localhost:${port}`,
       description: 'servidor local',
     },
     {
