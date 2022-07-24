@@ -1,5 +1,18 @@
 const { Account } = require('../models');
 
+const validateData = (accountId, amount) => {
+  if (accountId === undefined || amount === undefined) {
+    return {
+      error: {
+        code: 400,
+        message: 'O código da conta e o valor do saque são obrigatórios.',
+      },
+    };
+  }
+
+  return {};
+};
+
 const validateWithdrawAmount = (availableBalance, requestedWithdraw) => {
   if (Number(requestedWithdraw) <= 0) {
     return {
@@ -23,6 +36,10 @@ const validateWithdrawAmount = (availableBalance, requestedWithdraw) => {
 };
 
 const withdrawFromAccount = async (accountId, amount) => {
+  const dataValidation = validateData(accountId, amount);
+
+  if (dataValidation.error) return dataValidation;
+
   const account = await Account.findByPk(accountId);
 
   const withdrawAmountValidation = validateWithdrawAmount(account.balance, amount);
