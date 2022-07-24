@@ -125,23 +125,46 @@ Validações a serem feitas:
 
 ## 2. Explicação sobre as tomadas de decisão no projeto
 
-Seguem as decisões tomadas no planejamento, implementação e conclusão do projeto, com a correspondente explicação.
+Seguem as decisões tomadas no planejamento, na implementação e na conclusão do projeto, com a correspondente explicação.
 
-### I) Padrões de arquitetura
+### I) Etapa de planejamento
 
-Serão adotados os seguintes padrões de arquitetura:
+Os dois primeiros dias foram dedicados ao planejamento da aplicação.
+
+Nesta etapa foram definidos os padrões de arquitetura e as tecnologias que seriam utilizadas, bem como o Diagrama de Entidade-Relacionamento (DER), para orientar a construção das tabelas no banco de dados.
+
+Nesta etapa também foi confecionada a versão inicial deste README.
+
+Seguem as definições com as justificativas.
+
+#### Padrões de arquitetura
+
+Foram adotados os seguintes padrões de arquitetura:
 
 - MSC (arquitetura de software com Model, Service e Controller)
 - REST (arquitetura web com Representational State Transfer)
 
-### II) Tecnologias utilizadas
+São padrões consagrados de como organizar o código, que melhoram a sua qualidade e funcionalidade.
+
+#### Tecnologias utilizadas
 
 - Node.js
 - Express
 - Sequelize
-- MySQL
+- MySQL/Postgres
+- Mocha, Chai e Sinon
 
-### III) Diagrama de Entidade-Relacionamento (DER)
+O Node.js foi adotado para a utilização do JavaScript no Back-End. O Express, para algumas tarefas que não são suportadas diretamente pelo Node.js.
+
+O Sequelize foi adotado como ORM (Object-Relational Mapping) por prover uma maneira de interagir com o banco de dados através de código JavaScript.
+
+Um ORM possui múltiplas vantagens, dentre elas, a de utilizar vários tipos de banco de dados simultaneamente (com a ressalva a ser feita na parte de deploy - veja a seguir, na etapa de execução).
+
+No caso, foi adotado o MySQL no ambiente de desenvolvimento e teste, e o Postgres no ambiente de produção, na plataforma Heroku.
+
+Mocha, Chai e Sinon foram utilizados para os testes unitários.
+
+#### Diagrama de Entidade-Relacionamento (DER)
 
 Para orientar a construção das tabelas através do Sequelize, foi elaborado o DER a seguir:
 
@@ -153,6 +176,245 @@ Para orientar a construção das tabelas através do Sequelize, foi elaborado o 
 Note que, tendo em vista que as tabelas "ativos" e "contas" possuem um relacionamento N:N (muitos para muitos), foi criada uma tabela intermediária ("contas_ativos").
 
 Para a normalização do banco de dados, foi observada a 3ª Norma Formal (3FN).
+
+### 2) Etapa de execução
+
+Na etapa de execução, foram elaborados os endpoints requisitados, bem como endpoints e validações adicionais, visando conferir a melhor funcionalidade à aplicação.
+
+Seguem os endpoints implementados (requisito mínimo específico):
+
+#### /docs
+
+Documentação da API no Swagger.
+
+#### POST /accounts/account
+
+O endpoint cria uma nova conta na corretora.
+
+Recebe como entradas o nome e a cédula de identidade do cliente e uma senha.
+
+Retorna o código e o saldo da nova conta.
+
+Validações:
+
+- O nome, a cédula de identidade e a senha são obrigatórios.
+- A cédula de identidade informada não pode possuir uma conta na corretora.
+
+#### POST /login
+
+O endpoint se destina à autenticação e autorização JWT.
+
+Recebe como entradas o código da conta e a senha do cliente.
+
+Retorna um token.
+
+Validações:
+
+- O código da conta e a senha são obrigatórios.
+- O cliente deve ter uma conta na corretora para ser gerado o token.
+- O login é necessário para todos os demais endpoints, exceto o endpoint que cria uma conta na corretora.
+- A validação nos demais endpoints é realizada por um middleware que verifica se há um token no req.headers.authorization e, se houver, se os dados do token correspondem aos dados de uma conta na corretora.
+
+#### POST /accounts/deposit
+
+O endpoint realiza um depósito na conta indicada.
+
+Recebe como entradas o código da conta e o valor do depósito.
+
+Retorna o código e o saldo atual da conta.
+
+Validações:
+
+- O código da conta e o valor do depósito são obrigatórios.
+- O valor do depósito não pode ser negativo ou igual a zero.
+
+#### POST /accounts/withdraw
+
+O endpoint realiza um saque na conta indicada.
+
+Recebe como entradas o código da conta e o valor do saque.
+
+Retorna o código e o saldo atual da conta.
+
+Validações:
+
+- O código da conta e o valor do saque são obrigatórios.
+- O valor do saque não pode ser negativo ou igual a zero.
+- O valor do saque não pode ser maior do que o saldo da conta.
+
+#### POST /investments/buy
+
+O endpoint realiza a compra de um ativo.
+
+Recebe como entradas o código da conta compradora, o código do ativo e a quantidade de ativos comprados.
+
+Retorna o ativo comprado, com o código da conta compradora, o código do ativo e a quantidade atual de ativos.
+
+Validações:
+
+- O código da conta, o código do ativo e a quantidade são obrigatórios.
+- O ativo informado deve existir na corretora.
+- Deve haver ativos suficientes na corretora para a compra.
+- Deve haver saldo suficiente na conta para a compra.
+
+Observação: é feita a atualização da quantidade de ativos na corretora e do saldo na conta do cliente.
+
+#### POST /investments/sell
+
+O endpoint realiza a venda de um ativo.
+
+Recebe como entradas o código da conta vendedora, o código do ativo e a quantidade de ativos vendidos.
+
+Retorna o ativo vendido, com o código da conta vendedora, o código do ativo e a quantidade atual de ativos.
+
+Validações:
+
+- O código da conta, o código do ativo e a quantidade são obrigatórios.
+- O ativo informado deve existir na carteira.
+- Deve haver ativos suficientes na carteira para a venda.
+
+Observação: é feita a atualização da quantidade de ativos na corretora e do saldo na conta do cliente.
+
+#### GET /assets/account/:id
+
+O endpoint lista todos os ativos encontrados na carteira.
+
+Recebe como entrada o código da conta.
+
+Retorna uma lista com o código da conta, o código, o ticker e o preço do ativo e a quantidade de ativos para cada ativo encontrado na carteira.
+
+Validações:
+
+- O código da conta é obrigatório.
+- Devem ser encontrados ativos na carteira.
+
+#### GET /assets/asset/:id
+
+O endpoint retorna as informações de um ativo encontrado na corretora.
+
+Recebe como entrada o código do ativo.
+
+O endpoint retorna o código, o ticker e o preço do ativo e a quantidade de ativos disponíveis na corretora.
+
+Validações:
+
+- O código do ativo é obrigatório.
+- O ativo informado deve existir na corretora.
+
+#### GET /accounts/account/:id
+
+O endpoint retorna as informações de uma conta encontrada na corretora.
+
+Recebe como entrada o código da conta.
+
+O endpoint retorna o código e o saldo da conta.
+
+Validações:
+
+- O código da conta é obrigatório.
+- A conta informada deve existir na corretora.
+
+#### DELETE /accounts/account/:id
+
+O endpoint remove uma conta na corretora.
+
+Recebe como entrada o código da conta.
+
+Retorna uma mensagem confirmando a remoção.
+
+Validações:
+
+- O código da conta é obrigatório.
+- A conta informada deve existir na corretora.
+- O saldo precisa estar zerado para a conta ser removida.
+
+#### PUT /accounts/account/:id
+
+O endpoint altera a senha do cliente na corretora.
+
+Recebe como entradas o código da conta e uma nova senha.
+
+Retorna uma mensagem confirmando a alteração.
+
+Validações:
+
+- O código da conta e a senha são obrigatórios.
+- A conta informada deve existir na corretora.
+
+#### Lista de ações que passem as informações para o Front-End
+
+A lita (requisito mínimo específico) pode ser encontrada na página inicial da aplicação.
+
+Para visualizá-la localmente, rode o servidor com npm start e abra a página no navegador (http://localhost:3000/ - ou outra porta indicada).
+
+Para visualizá-la em produção, acesse a aplicação no Heroku:
+
+https://xpinc-investments-api.herokuapp.com/
+
+#### Testes unitários
+
+O projeto conta com testes unitários (requisito adicional) para garantir a qualidade e o funcionamento das unidades do código.
+
+As tecnologias utilizadas foram Mocha, Chai e Sinon.
+
+Atualmente, todos os testes estão sendo executados com êxito, conforme pode ser observado abaixo.
+
+Além disso, os testes possuem atualmente cobertura de código de `+97%`.
+
+<div align="center">
+  <img src=".github/tests.png" alt="Resultado Testes Unitários" width="600px" />
+</div>
+<br />
+
+#### Deploy da API
+
+Foi feito o deploy da API (requisito adicional), que pode ser encontrada na URL abaixo:
+
+https://xpinc-investments-api.herokuapp.com/
+
+É preciso notar que, ao testar manualmente a aplicação em produção, foi possível criar contas, porém foram apresentados bugs no login (a princípio, a conta anteriormente criada não é encontrada para gerar o token).
+
+Os bugs ainda estão em análise.
+
+Uma possível causa, que está sendo estudada, é a não utilização do Postgres localmente, gerando uma disparidade entre os ambientes.
+
+#### Autenticação e autorização JWT
+
+Foi implementada a autenticação e autorização JWT (requisito adicional) na aplicação.
+
+Primeiramente, o cliente deve informar o código da conta e a senha por meio do req.body no endpoint POST /login.
+
+Se o cliente é encontrado no banco de dados, é retornado um token (gerado a partir do código da conta e da senha).
+
+O token deve ser inserido no req.headers.authorization, do qual será obtido por um middleware de validação que está presente em todos os demais endpoints, exceto o endpoint que cria uma conta na corretora.
+
+O middleware verifica se há um token no req.headers.authorization e, se houver, se os dados do token correspondem aos dados de uma conta na corretora.
+
+#### Documentação da API (Swagger)
+
+A Documentação da API no Swagger (requisito adicional) pode ser encontrada no endpoint /docs da aplicação.
+
+Para visualizá-la localmente, rode o servidor com npm start e abra a página no navegador (http://localhost:3000/docs - ou outra porta indicada).
+
+Para visualizá-la em produção, acesse a aplicação no Heroku:
+
+https://xpinc-investments-api.herokuapp.com/docs
+
+### 3) Etapa de conclusão
+
+A aplicação foi concluída no prazo requisitado.
+
+Com mais tempo, seriam feitas as seguintes melhorias:
+
+- Implementação do Lint.
+- Refatoração visando melhorias no projeto.
+
+Seriam ainda estudadas as seguintes possibilidades:
+
+- Adicionar o accountId obtido na validação JWT no req, repassando para os controllers, de modo que o cliente apenas teria acesso aos dados da sua conta.
+- Implementar Cors para a conexão do Back-End com o Front-End.
+- Criptografar a senha dos clientes no banco de dados.
+- Outras melhorias.
 
 
 ## 3. Instruções sobre como executar o projeto
@@ -169,15 +431,9 @@ git clone git@github.com:rhenanstoccozimmermann/xpinc-investments-api.git
 
 - Instalação do [Node.js](https://nodejs.org/en/);
 - Instalação das dependências com npm install (ou npm i); e
-- Criação de um arquivo .env com as variáveis de ambiente para uso do MySQL (usar como referência o `.env.example`).
+- Criação de um arquivo .env com as variáveis de ambiente para uso do banco de dados (usar como referência o `.env.example`).
 
 ### III) Execução da aplicação
-
-### IV) Testes unitários
-
-### V) Cobertura de código
-
-### VI) Deploy da API
 
 
 ## 4. Contato
