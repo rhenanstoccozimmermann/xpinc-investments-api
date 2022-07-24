@@ -20,14 +20,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
-    use_env_variable: 'DATABASE_URL',
-    dialect: 'postgres',
-    protocol: 'postgres',
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-    },
+    use_env_variable: 'JAWSDB_URL',
+    dialect: 'mysql',
   },
 };

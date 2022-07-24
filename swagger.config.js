@@ -15,7 +15,7 @@ module.exports = {
       description: 'servidor local',
     },
     {
-      url: 'https://xpinc-investments-api.herokuapp.com',
+      url: 'https://rsz-xpinc-investments-api.herokuapp.com',
       description: 'servidor de produção',
     }],
     components: {
