@@ -7,6 +7,19 @@ const env = process.env.NODE_ENV || 'development';
 
 const sequelize = new Sequelize(config[env]);
 
+const validateData = (accountId) => {
+  if (accountId === undefined) {
+    return {
+      error: {
+        code: 400,
+        message: 'O código da conta é obrigatório.',
+      },
+    };
+  }
+
+  return {};
+};
+
 const validateAccount = (account) => {
   if (!account) {
     return {
@@ -44,6 +57,10 @@ const executeTransaction = async (accountId) => {
 };
 
 const removeAccount = async (accountId) => {
+  const dataValidation = validateData(accountId);
+
+  if (dataValidation.error) return dataValidation;
+
   const account = await Account.findByPk(accountId);
 
   const accountValidation = validateAccount(account);
