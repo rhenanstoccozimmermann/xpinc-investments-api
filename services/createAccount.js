@@ -7,6 +7,19 @@ const env = process.env.NODE_ENV || 'development';
 
 const sequelize = new Sequelize(config[env]);
 
+const validateData = (name, identityCard, password) => {
+  if (!name || !identityCard || !password) {
+    return {
+      error: {
+        code: 400,
+        message: 'O nome, a cédula de identidade e a senha são obrigatórios.',
+      },
+    };
+  }
+
+  return {};
+};
+
 const validateAccount = (identityCard, clients) => {
   if (clients && clients.some((el) => Number(el.identityCard) === Number(identityCard))) {
     return {
@@ -35,6 +48,10 @@ const executeTransaction = async (name, identityCard, password) => {
 };
 
 const createAccount = async (name, identityCard, password) => {
+  const dataValidation = validateData(name, identityCard, password);
+
+  if (dataValidation.error) return dataValidation;
+
   const clients = await Client.findAll();
 
   const accountValidation = validateAccount(identityCard, clients);
