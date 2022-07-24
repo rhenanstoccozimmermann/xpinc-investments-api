@@ -175,9 +175,9 @@ Note que, tendo em vista que as tabelas "ativos" e "contas" possuem um relaciona
 
 Para a normalização do banco de dados, foi observada a 3ª Norma Formal (3FN).
 
-### 2) Etapa de execução
+### 2) Etapa de implementação
 
-Na etapa de execução, foram elaborados os endpoints com as validações requisitadas, bem como endpoints e validações adicionais, visando conferir a melhor funcionalidade à aplicação.
+Na etapa de implementação, foram elaborados os endpoints com as validações requisitadas, bem como endpoints e validações adicionais, visando conferir a melhor funcionalidade à aplicação.
 
 Foi criado um CRUD (create, read, update and delete) completo.
 
