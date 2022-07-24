@@ -4,10 +4,10 @@
   "description": "<div align=\"center\">   <a href=\"https://github.com/rhenanstoccozimmermann/xpinc-investments-api\">     <img src=\".github/xpinc.png\" alt=\"Desafio Técnico Turma XP - Trybe\" width=\"400px\">   </a>   <h3 align=\"center\">Desafio Técnico Turma XP - Trybe | XP Inc.</h3>   <p align=\"center\">     Trata-se de desafio técnico proposto pela XP Inc. no processo seletivo da Turma XP - Trybe, no qual foi desenvolvido um aplicativo de investimento em ações, com algumas funcionalidades de conta digital.   </p> </div>",
   "main": "server.js",
   "scripts": {
-    "prestart": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all",
+    "database": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all",
     "start": "node server.js",
     "pretest": "NODE_ENV=test npx sequelize db:drop && NODE_ENV=test npx sequelize db:create && NODE_ENV=test npx sequelize db:migrate && NODE_ENV=test npx sequelize db:seed:all",
-    "test": "nyc --all --include services --include controllers mocha tests/**/*.js --exit"
+    "test": "nyc --all --include services --include controllers mocha tests/**/*.js --exit"   
   },
   "repository": {
     "type": "git",
@@ -21,10 +21,12 @@
   },
   "homepage": "https://github.com/rhenanstoccozimmermann/xpinc-investments-api#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
+    "pg": "^8.7.3",
     "sequelize": "^6.21.3",
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.5.0"

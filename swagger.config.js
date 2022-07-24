@@ -8,7 +8,11 @@ module.exports = {
     },
     servers: [{
       url: 'http://localhost:3000',
-      description: 'Heroku',
+      description: 'servidor local',
+    },
+    {
+      url: 'https://xpinc-investments-api.herokuapp.com',
+      description: 'servidor de produção',
     }],
     components: {
       securitySchemes: {
