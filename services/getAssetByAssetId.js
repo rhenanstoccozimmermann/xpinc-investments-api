@@ -1,6 +1,23 @@
 const { Asset } = require('../models');
 
+const validateData = (assetId) => {
+  if (assetId === undefined) {
+    return {
+      error: {
+        code: 400,
+        message: 'O código do ativo é obrigatório.',
+      },
+    };
+  }
+
+  return {};
+};
+
 const getAssetByAssetId = async (assetId) => {
+  const dataValidation = validateData(assetId);
+
+  if (dataValidation.error) return dataValidation;
+
   const asset = await Asset.findByPk(assetId);
 
   if (!asset) {
