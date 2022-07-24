@@ -1,5 +1,18 @@
 const { Account } = require('../models');
 
+const validateData = (accountId, amount) => {
+  if (accountId === undefined || amount === undefined) {
+    return {
+      error: {
+        code: 400,
+        message: 'O código da conta e o valor do depósito são obrigatórios.',
+      },
+    };
+  }
+
+  return {};
+};
+
 const validateDepositAmount = (requestedDeposit) => {
   if (Number(requestedDeposit) <= 0) {
     return {
@@ -14,6 +27,10 @@ const validateDepositAmount = (requestedDeposit) => {
 };
 
 const depositIntoAccount = async (accountId, amount) => {
+  const dataValidation = validateData(accountId, amount);
+
+  if (dataValidation.error) return dataValidation;
+
   const depositAmountValidation = validateDepositAmount(amount);
 
   if (depositAmountValidation.error) return depositAmountValidation;
