@@ -314,6 +314,19 @@ Validações:
 - O código da conta é obrigatório.
 - A conta informada deve existir na corretora.
 
+#### PUT /accounts/account/:id
+
+O endpoint altera a senha do cliente na corretora.
+
+Recebe como entradas o código da conta e uma nova senha.
+
+Retorna uma mensagem confirmando a alteração.
+
+Validações:
+
+- O código da conta e a senha são obrigatórios.
+- A conta informada deve existir na corretora.
+
 #### DELETE /accounts/account/:id
 
 O endpoint remove uma conta na corretora.
@@ -327,19 +340,6 @@ Validações:
 - O código da conta é obrigatório.
 - A conta informada deve existir na corretora.
 - O saldo precisa estar zerado para a conta ser removida.
-
-#### PUT /accounts/account/:id
-
-O endpoint altera a senha do cliente na corretora.
-
-Recebe como entradas o código da conta e uma nova senha.
-
-Retorna uma mensagem confirmando a alteração.
-
-Validações:
-
-- O código da conta e a senha são obrigatórios.
-- A conta informada deve existir na corretora.
 
 #### Lista de ações que passem as informações para o Front-End
 
