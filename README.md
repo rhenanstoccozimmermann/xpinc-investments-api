@@ -430,11 +430,18 @@ git clone git@github.com:rhenanstoccozimmermann/xpinc-investments-api.git
 ### II) Configurações
 
 - Instalação do [Node.js](https://nodejs.org/en/);
-- Instalação das dependências com npm install (ou npm i); e
-- Criação de um arquivo .env com as variáveis de ambiente para uso do banco de dados (usar como referência o `.env.example`).
+- Instalação das dependências com `npm install` (ou `npm i`); e
+- Criação de um arquivo `.env` com as variáveis de ambiente (usar como referência o `.env.example`).
 
 ### III) Execução da aplicação
 
+Para rodar a aplicação localmente, no ambiente de desenvolvimento, execute o comando `npm start` (que vai rodar o `server.js`).
+
+Antes, contudo, se a intenção for utilizar o banco de dados, execute o comando `npm run database`, que vai dropar, criar e fazer o migrate e o seed no Sequelize.
+
+### IV) Execução dos testes
+
+Para rodar os testes, execute o comando `npm test` (que vai também executar o `npm pretest`, configurando o banco de dados no ambiente de teste).
 
 ## 4. Contato
 
