@@ -7,6 +7,19 @@ const env = process.env.NODE_ENV || 'development';
 
 const sequelize = new Sequelize(config[env]);
 
+const validateData = (accountId, assetId, quantity) => {
+  if (accountId === undefined || assetId === undefined || quantity === undefined) {
+    return {
+      error: {
+        code: 400,
+        message: 'O código da conta, o código do ativo e a quantidade são obrigatórios.',
+      },
+    };
+  }
+
+  return {};
+};
+
 const validateTransaction = (asset, requestedQuantity, totalPrice, account) => {
   if (!asset) {
     return {
@@ -71,6 +84,10 @@ const executeUpdateTransaction = async (accountId, assetId, quantity, asset, acc
 };
 
 const buyAsset = async (accountId, assetId, quantity) => {
+  const dataValidation = validateData(accountId, assetId, quantity);
+
+  if (dataValidation.error) return dataValidation;
+
   const asset = await Asset.findByPk(assetId);
 
   const account = await Account.findByPk(accountId);
