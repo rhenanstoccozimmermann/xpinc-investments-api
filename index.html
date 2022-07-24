@@ -14,10 +14,22 @@
     <h2>Endpoints</h2>
     <h3>/docs</h3>
     <p>Documentação da API no Swagger.</p>
+    <h3>POST /accounts/account</h3>
+    <p>O endpoint cria uma nova conta na corretora.</p>
+    <p>Recebe como entradas o nome e a cédula de identidade do cliente e uma senha.</p>
+    <p>Retorna o código e o saldo da nova conta.</p>
     <h3>POST /login</h3>
     <p>O endpoint se destina à autenticação e autorização JWT.</p>
     <p>Recebe como entradas o código da conta e a senha do cliente.</p>
     <p>Retorna um token.</p>
+    <h3>POST /accounts/deposit</h3>
+    <p>O endpoint realiza um depósito na conta indicada.</p>
+    <p>Recebe como entradas o código da conta e o valor do depósito.</p>
+    <p>Retorna o código e o saldo atual da conta.</p>
+    <h3>POST /accounts/withdraw</h3>
+    <p>O endpoint realiza um saque na conta indicada.</p>
+    <p>Recebe como entradas o código da conta e o valor do saque.</p>
+    <p>Retorna o código e o saldo atual da conta.</p>
     <h3>POST /investments/buy</h3>
     <p>O endpoint realiza a compra de um ativo.</p>
     <p>Recebe como entradas o código da conta compradora, o código do ativo e a quantidade de ativos comprados.</p>
@@ -27,29 +39,24 @@
     <p>Recebe como entradas o código da conta vendedora, o código do ativo e a quantidade de ativos vendidos.</p>
     <p>Retorna o ativo vendido, com o código da conta vendedora, o código do ativo e a quantidade atual de ativos.</p>
     <h3>GET /assets/account/:id</h3>
-    <p>O endpoint retorna uma lista com o código da conta, o código, o ticker e o preço do ativo e a quantidade de ativos para cada ativo encontrado na carteira.</p>
+    <p>O endpoint lista todos os ativos encontrados na carteira.</p>
+    <p>Recebe como entrada o código da conta.</p>
+    <p>Retorna uma lista com o código da conta, o código, o ticker e o preço do ativo e a quantidade de ativos para cada ativo encontrado na carteira.</p>
     <h3>GET /assets/asset/:id</h3>
-    <p>O endpoint retorna o código, o ticker e o preço do ativo e a quantidade de ativos na corretora .</p>
-    <h3>POST /accounts/deposit</h3>
-    <p>O endpoint realiza um depósito na conta indicada.</p>
-    <p>Recebe como entradas o código da conta e o valor do depósito.</p>
-    <p>Retorna o código e o saldo atual da conta.</p>
-    <h3>POST /accounts/withdraw</h3>
-    <p>O endpoint realiza um saque na conta indicada.</p>
-    <p>Recebe como entradas o código da conta e o valor do saque.</p>
-    <p>Retorna o código e o saldo atual da conta.</p>
+    <p>O endpoint retorna as informações de um ativo encontrado na corretora.</p>
+    <p>Recebe como entrada o código do ativo.</p>
+    <p>O endpoint retorna o código, o ticker e o preço do ativo e a quantidade de ativos disponíveis na corretora.</p>
     <h3>GET /accounts/account/:id</h3>
+    <p>O endpoint retorna as informações de uma conta encontrada na corretora.</p>
+    <p>Recebe como entrada o código da conta.</p>
     <p>O endpoint retorna o código e o saldo da conta.</p>
-    <h3>POST /accounts/account</h3>
-    <p>O endpoint cria uma nova conta na corretora.</p>
-    <p>Recebe como entradas o nome do cliente e uma senha.</p>
-    <p>Retorna o código e o saldo da nova conta.</p>
-    <h3>DELETE /accounts/account/:id</h3>
-    <p>O endpoint remove uma conta na corretora.</p>
-    <p>Retorna uma mensagem confirmando a remoção.</p>
     <h3>PUT /accounts/account/:id</h3>
     <p>O endpoint altera a senha do cliente na corretora.</p>
     <p>Recebe como entradas o código da conta e uma nova senha.</p>
     <p>Retorna uma mensagem confirmando a alteração.</p>
+    <h3>DELETE /accounts/account/:id</h3>
+    <p>O endpoint remove uma conta na corretora.</p>
+    <p>Recebe como entrada o código da conta.</p>
+    <p>Retorna uma mensagem confirmando a remoção.</p>
   </body>
 </html>
