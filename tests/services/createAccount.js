@@ -5,6 +5,36 @@ const createAccountService = require('../../services/createAccount');
 const { Client, Account } = require('../../models');
 
 describe('Ao chamar o service createAccount', () => {
+  describe('quando as informações obrigatórias não são passadas', async () => {
+    const name = undefined;
+    const identityCard = undefined;
+    const password = undefined;
+    
+    const code = 400;
+    const message = 'O nome, a cédula de identidade e a senha são obrigatórios.';   
+
+    it('retorna um objeto de erro', async () => {
+      const response = await createAccountService.createAccount(name, identityCard, password);
+
+      expect(response).to.be.a('object');
+    });
+
+    it('tal objeto possui as propriedades de erro', async () => {
+      const response = await createAccountService.createAccount(name, identityCard, password);
+
+      expect(response).to.have.a.property('error');
+      expect(response.error).to.have.a.property('code');
+      expect(response.error).to.have.a.property('message');
+    });
+
+    it('tais propriedades possuem os valores corretos', async () => {
+      const response = await createAccountService.createAccount(name, identityCard, password);
+  
+      expect(response.error.code).to.be.equal(code);
+      expect(response.error.message).to.be.equal(message);
+    });
+  });
+
   describe('quando o identityCard informado já possui uma conta na corretora', async () => {
     const name = 'Mr. Buffet';
     const identityCard = '11111111111';
