@@ -175,7 +175,7 @@ Note que, tendo em vista que as tabelas "ativos" e "contas" possuem um relaciona
 
 Para a normalização do banco de dados, foi observada a 3ª Norma Formal (3FN).
 
-### 2) Etapa de implementação
+### II) Etapa de implementação
 
 Na etapa de implementação, foram elaborados os endpoints com as validações requisitadas, bem como endpoints e validações adicionais, visando conferir a melhor funcionalidade à aplicação.
 
@@ -403,7 +403,7 @@ Para visualizá-la em produção, acesse a aplicação no Heroku:
 
 https://rsz-xpinc-investments-api.herokuapp.com/docs/
 
-### 3) Etapa de conclusão
+### III) Etapa de conclusão
 
 A aplicação foi concluída no prazo requisitado.
 
