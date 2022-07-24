@@ -179,7 +179,13 @@ Para a normalização do banco de dados, foi observada a 3ª Norma Formal (3FN).
 
 ### 2) Etapa de execução
 
-Na etapa de execução, foram elaborados os endpoints requisitados, bem como endpoints e validações adicionais, visando conferir a melhor funcionalidade à aplicação.
+Na etapa de execução, foram elaborados os endpoints com as validações requisitadas, bem como endpoints e validações adicionais, visando conferir a melhor funcionalidade à aplicação.
+
+Foi criado um CRUD (create, read, update and delete) completo.
+
+Além disso, cumpre observar que foram utilizadas transactions no Sequelize (no caso, managed transactions) quando realizada mais de uma modificação no banco de dados numa mesma operação, possibilitando o rollback caso uma das modificações não seja concluída com sucesso.
+
+Quando há mera consulta ao banco de dados, não são utilizadas transactions.
 
 Seguem os endpoints implementados (requisito mínimo específico):
 
@@ -198,7 +204,7 @@ Retorna o código e o saldo da nova conta.
 Validações:
 
 - O nome, a cédula de identidade e a senha são obrigatórios.
-- A cédula de identidade informada não pode possuir uma conta na corretora.
+- A cédula de identidade informada não pode possuir mais de uma conta na corretora.
 
 #### POST /login
 
@@ -345,7 +351,7 @@ Validações:
 
 A lita (requisito mínimo específico) pode ser encontrada na página inicial da aplicação.
 
-Para visualizá-la localmente, rode o servidor com npm start e abra a página no navegador (http://localhost:3000/ - ou outra porta indicada).
+Para visualizá-la localmente, rode o servidor com `npm start` e abra a página no navegador (http://localhost:3000/ - ou outra porta indicada).
 
 Para visualizá-la em produção, acesse a aplicação no Heroku:
 
@@ -364,7 +370,6 @@ Além disso, os testes possuem atualmente cobertura de código de `+97%`.
 <div align="center">
   <img src=".github/tests.png" alt="Resultado Testes Unitários" width="600px" />
 </div>
-<br />
 
 #### Deploy da API
 
@@ -376,7 +381,7 @@ https://xpinc-investments-api.herokuapp.com/
 
 Os bugs ainda estão em análise.
 
-Uma possível causa, que está sendo estudada, é a não utilização do Postgres localmente, gerando uma disparidade entre os ambientes.
+Uma possível causa, que está sendo estudada, é a não utilização do Postgres localmente (ou do MySQL em produção), gerando uma disparidade entre os ambientes.
 
 #### Autenticação e autorização JWT
 
@@ -394,7 +399,7 @@ O middleware verifica se há um token no req.headers.authorization e, se houver,
 
 A Documentação da API no Swagger (requisito adicional) pode ser encontrada no endpoint /docs da aplicação.
 
-Para visualizá-la localmente, rode o servidor com npm start e abra a página no navegador (http://localhost:3000/docs - ou outra porta indicada).
+Para visualizá-la localmente, rode o servidor com `npm start` e abra a página no navegador (http://localhost:3000/docs - ou outra porta indicada).
 
 Para visualizá-la em produção, acesse a aplicação no Heroku:
 
@@ -406,6 +411,7 @@ A aplicação foi concluída no prazo requisitado.
 
 Com mais tempo, seriam feitas as seguintes melhorias:
 
+- Solucionar o bug do login em produção.
 - Implementação do Lint.
 - Refatoração visando melhorias no projeto.
 
