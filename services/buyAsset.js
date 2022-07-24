@@ -20,7 +20,7 @@ const validateData = (accountId, assetId, quantity) => {
   return {};
 };
 
-const validateTransaction = (asset, requestedQuantity, totalPrice, account) => {
+const validateTransaction = (asset, requestedQuantity, account) => {
   if (!asset) {
     return {
       error: {
@@ -38,6 +38,8 @@ const validateTransaction = (asset, requestedQuantity, totalPrice, account) => {
       },
     };
   }
+
+  const totalPrice = (Number(asset.price) * Number(requestedQuantity));
 
   if (Number(account.balance) < totalPrice) {
     return {
@@ -92,11 +94,11 @@ const buyAsset = async (accountId, assetId, quantity) => {
 
   const account = await Account.findByPk(accountId);
 
-  const totalPrice = (Number(asset.price) * Number(quantity));
-
-  const transactionValidation = validateTransaction(asset, quantity, totalPrice, account);
+    const transactionValidation = validateTransaction(asset, quantity, account);
 
   if (transactionValidation.error) return transactionValidation;
+
+  const totalPrice = (Number(asset.price) * Number(quantity));
 
   const accountAsset = await AccountAsset.findOne({ where: { accountId, assetId } });
 
