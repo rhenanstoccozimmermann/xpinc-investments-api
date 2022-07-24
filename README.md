@@ -151,16 +151,14 @@ São padrões consagrados de como organizar o código, que melhoram a sua qualid
 - Node.js
 - Express
 - Sequelize
-- MySQL/Postgres
+- MySQL
 - Mocha, Chai e Sinon
 
 O Node.js foi adotado para a utilização do JavaScript no Back-End. O Express, para algumas tarefas que não são suportadas diretamente pelo Node.js.
 
 O Sequelize foi adotado como ORM (Object-Relational Mapping) por prover uma maneira de interagir com o banco de dados através de código JavaScript.
 
-Um ORM possui múltiplas vantagens, dentre elas, a de utilizar vários tipos de banco de dados simultaneamente (com a ressalva a ser feita na parte de deploy - veja a seguir, na etapa de execução).
-
-No caso, foi adotado o MySQL no ambiente de desenvolvimento e teste, e o Postgres no ambiente de produção, na plataforma Heroku.
+No caso, foi adotado o MySQL em todos os ambientes, inclusive de produção, na plataforma Heroku, buscando a paridade entre os ambientes.
 
 Mocha, Chai e Sinon foram utilizados para os testes unitários.
 
@@ -355,7 +353,7 @@ Para visualizá-la localmente, rode o servidor com `npm start` e abra a página 
 
 Para visualizá-la em produção, acesse a aplicação no Heroku:
 
-https://xpinc-investments-api.herokuapp.com/
+https://rsz-xpinc-investments-api.herokuapp.com/
 
 #### Testes unitários
 
@@ -375,13 +373,13 @@ Além disso, os testes possuem atualmente cobertura de código de `+97%`.
 
 Foi feito o deploy da API (requisito adicional), que pode ser encontrada na URL abaixo:
 
-https://xpinc-investments-api.herokuapp.com/
+https://rsz-xpinc-investments-api.herokuapp.com/
 
-É preciso notar que, ao testar manualmente a aplicação em produção, foi possível criar contas, porém foram apresentados bugs no login (a princípio, a conta anteriormente criada não é encontrada para gerar o token).
+É preciso notar que, inicialmente, ao utilizar o Postgres no ambiente de produção, era possível criar contas, porém foram constatados bugs no login (a princípio, a conta anteriormente criada não era encontrada para gerar o token).
 
-Os bugs ainda estão em análise.
+Os bugs foram resolvidos, tendo sido adotado o MySQL também no ambiente de produção, com o add-on JawsDB no Heroku.
 
-Uma possível causa, que está sendo estudada, é a não utilização do Postgres localmente (ou do MySQL em produção), gerando uma disparidade entre os ambientes.
+O problema era a disparidade entre os ambientes.
 
 #### Autenticação e autorização JWT
 
@@ -403,7 +401,7 @@ Para visualizá-la localmente, rode o servidor com `npm start` e abra a página 
 
 Para visualizá-la em produção, acesse a aplicação no Heroku:
 
-https://xpinc-investments-api.herokuapp.com/docs
+https://rsz-xpinc-investments-api.herokuapp.com/docs/
 
 ### 3) Etapa de conclusão
 
