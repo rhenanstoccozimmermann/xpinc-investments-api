@@ -5,6 +5,35 @@ const withdrawFromAccountService = require('../../services/withdrawFromAccount')
 const { Account } = require('../../models');
 
 describe('Ao chamar o service withdrawFromAccount', () => {
+  describe('quando as informações obrigatórias não são passadas', async () => {
+    const accountId = undefined;
+    const amount = undefined;
+    
+    const code = 400;
+    const message = 'O código da conta e o valor do saque são obrigatórios.';   
+
+    it('retorna um objeto de erro', async () => {
+      const response = await withdrawFromAccountService.withdrawFromAccount(accountId, amount);
+
+      expect(response).to.be.a('object');
+    });
+
+    it('tal objeto possui as propriedades de erro', async () => {
+      const response = await withdrawFromAccountService.withdrawFromAccount(accountId, amount);
+
+      expect(response).to.have.a.property('error');
+      expect(response.error).to.have.a.property('code');
+      expect(response.error).to.have.a.property('message');
+    });
+
+    it('tais propriedades possuem os valores corretos', async () => {
+      const response = await withdrawFromAccountService.withdrawFromAccount(accountId, amount);
+  
+      expect(response.error.code).to.be.equal(code);
+      expect(response.error.message).to.be.equal(message);
+    });
+  });
+
   describe('quando o valor do saque é igual a zero', async () => {
     const accountId = 1;
     const amount = 0;
