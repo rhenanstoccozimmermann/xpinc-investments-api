@@ -5,6 +5,36 @@ const buyAssetService = require('../../services/buyAsset');
 const { Asset, Account, AccountAsset } = require('../../models');
 
 describe('Ao chamar o service buyAsset', () => {
+  describe('quando as informações obrigatórias não são passadas', async () => {
+    const accountId = undefined;
+    const assetId = undefined;
+    const quantity = undefined;
+    
+    const code = 400;
+    const message = 'O código da conta, o código do ativo e a quantidade são obrigatórios.';
+    
+    it('retorna um objeto de erro', async () => {
+      const response = await buyAssetService.buyAsset(accountId, assetId, quantity);
+
+      expect(response).to.be.a('object');
+    });
+
+    it('tal objeto possui as propriedades de erro', async () => {
+      const response = await buyAssetService.buyAsset(accountId, assetId, quantity);
+
+      expect(response).to.have.a.property('error');
+      expect(response.error).to.have.a.property('code');
+      expect(response.error).to.have.a.property('message');
+    });
+
+    it('tais propriedades possuem os valores corretos', async () => {
+      const response = await buyAssetService.buyAsset(accountId, assetId, quantity);
+  
+      expect(response.error.code).to.be.equal(code);
+      expect(response.error.message).to.be.equal(message);
+    });
+  });
+
   describe('quando o ativo informado não é encontrado na corretora', async () => {
     const accountId = 1;
     const assetId = 1;
