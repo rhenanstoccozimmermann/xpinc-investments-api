@@ -409,7 +409,6 @@ A aplicação foi concluída no prazo requisitado.
 
 Com mais tempo, seriam feitas as seguintes melhorias:
 
-- Solucionar o bug do login em produção.
 - Implementação do Lint.
 - Refatoração visando melhorias no projeto.
 
